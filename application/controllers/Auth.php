@@ -6,7 +6,7 @@ class Auth extends CI_Controller {
     public function __construct()
     {
         parent::__construct();//manggil parent construct yang ada di CI
-        $this->load->library('form_validation'); //agar librari validasi fom bsa dgunakan dimana aja
+        $this->load->library('form_validation'); //agar librari validasi form bsa dgunakan dimana aja
     }
     public function index()
     {
@@ -18,12 +18,63 @@ class Auth extends CI_Controller {
     }
     public function login()
     {
-        //fungsiny ketika masuk link localhost/mhs info langsung ke load yang ini
-        //ada header ada footer tu urutan yang di load
-        $data['title'] = 'Login';
-        $this->load->view('templates/auth_header',$data);
-        $this->load->view('auth/login');
-        $this->load->view('templates/auth_footer');
+        $this->form_validation->set_rules('email','Email','trim|required|valid_email');
+        $this->form_validation->set_rules('password','Password','trim|required');
+
+        if($this->form_validation->run()==false)
+        {
+            //fungsiny ketika masuk link localhost/mhs info langsung ke load yang ini
+            //ada header ada footer tu urutan yang di load
+            $data['title'] = 'Login';//set title sesuai page
+            $this->load->view('templates/auth_header',$data);
+            $this->load->view('auth/login');
+            $this->load->view('templates/auth_footer');
+        }
+        else
+        {
+            //validation success
+            $this->_login();
+        }
+    }
+    private function _login()
+    {
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+        if($user)
+        {
+            //cek password yang dh d hash (pw_verify)
+            if(password_verify($password, $user['password']))
+            {
+                //siapin data email dan role id
+                $data = [
+                    'email' => $user['email'],
+                    'role_id' => $user['role_id']
+                ];
+                $this->session->set_userdata($data);
+                //cek apakah dia user/admin
+                if($user['role_id']==1)
+                {
+                    redirect('admin');
+                }
+                else
+                {
+                    redirect('user');
+                }
+            }
+            else
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');
+                redirect('auth/login');
+            }
+        }
+
+        else
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not registered !</div>');
+            redirect('auth/login');
+        }
     }
     public function registration()
     {
@@ -31,7 +82,7 @@ class Auth extends CI_Controller {
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]',  [
             'is_unique' => 'This email has already registered !'
         ]);
-        $this->form_validation->set_rules('monthlyIncome','monthlyIncome','required|numeric|greater_than[0.99]|regex_match[/^[0-9,]+$/]');
+        $this->form_validation->set_rules('monthlyIncome','monthlyIncome','required|numeric|regex_match[/^[0-9,]+$/]');
 
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
             'matches'=>'Password does not match!',
@@ -49,10 +100,11 @@ class Auth extends CI_Controller {
         else
         {
           $data = [
-            'name' => htmlspecialchars($this->input->post('name',true)),
+            'name' => htmlspecialchars($this->input->post('name',true)), //htmlspecialchars buat ngelindungi dari sqll injection atau scripct/html inject
             'email' => htmlspecialchars($this->input->post('email',true)),
+            'monthlyIncome' => $this->input->post('monthlyIncome',true),
             'image' =>'default.jpg',
-            'password' => password_hash($this->input->post('password1'),PASSWORD_DEFAULT),//ini passwordhas di encrypst dulu
+            'password' => password_hash($this->input->post('password1'),PASSWORD_DEFAULT),//ini password hash di encrypst dulu
             'role_id' => 2,
             'date_created' => time()
           ];
@@ -61,5 +113,14 @@ class Auth extends CI_Controller {
             redirect('auth/login');
         }
        
+    }
+    public function logout()
+    {
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('role_id');
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">You have been logged out! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button></div>');
+        redirect('auth');
     }
 }

@@ -4,7 +4,6 @@
   <title>Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<?= base_url('assets/'); ?>css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?= base_url('assets/'); ?>js/bootstrap.min.js">
   <link href="<?= base_url('assets/'); ?>css\fontawesome-free\css\all.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="<?= base_url('assets/'); ?>css/style.css">
 </head>
@@ -12,20 +11,22 @@
   <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#"><h1><span>MHS</span>Center</h1></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
       </ul>
       <ul class="navbar-nav navbar-right">
-        <li><a href="<?=base_url('auth/registration'); ?>" class="px-2"><button type="button" class="btn btn-primary"><i class="fas fa-door-open"></i> Register</button></a></li>
-        <li><a href="<?=base_url('auth/login'); ?>" class="px-2"><button type="button" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button></a></li>
+        <li><a href="<?=base_url('auth/registration'); ?>" class="px-2 "><button type="button" class="btn btn-primary my-2"><i class="fas fa-door-open "></i> Register</button></a></li>
+        <li><a href="<?=base_url('auth/login'); ?>" class="px-2"><button type="button" class="btn btn-primary my-2"><i class="fas fa-sign-in-alt"></i> Login</button></a></li>
         
       </ul>
     </div>
   </nav>
   <!-- Header -->
+  
+  <?= $this->session->flashdata('message'); ?>
   <div class="container mt-3">
     <div class="welcome">
       <h1>WELCOME TO <span>MHS</span> INFORMATION CENTER</h1>
@@ -98,7 +99,8 @@
   </footer>
   <!-- End of Footer -->
   </footer>
-  <script src="<?= base_url('assets/'); ?>js/jquery-3.2.1.js"></script>  
+  <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script> 
   <script src="<?= base_url('assets/'); ?>js/javascript.js"></script>
+  <script src="<?= base_url('assets/'); ?>js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -36,7 +36,7 @@
                             <td><?= $sm['application_id']; ?></td>
                             <td><?= $sm['applicant_id']; ?></td>
                             <td><?= $sm['residence_id']; ?></td>
-                            <td><?= $sm['applicationDate']; ?></td>
+                            <td><?=  date('d F yy', $sm['applicationDate']); ?></td>
                             <td><?= $sm['requiredMonth']; ?></td>
                             <td><?= $sm['requiredYear']; ?></td>
                             <td><?= $sm['status']; ?></td>
@@ -49,5 +49,10 @@
                 </table>
             </div>
         </div>
+    </div>
+    <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
 
        

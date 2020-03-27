@@ -41,7 +41,7 @@
                             <td>
                             <a 
                                 href="javascript:;"
-                                data-id="<?php echo $sm['residence_id'] ?>"
+                                data-residence_id="<?php echo $sm['residence_id'] ?>"
                                 data-address="<?php echo $sm['address'] ?>"
                                 data-numUnits="<?php echo $sm['numUnits'] ?>"
                                 data-sizePerUnit="<?php echo $sm['sizePerUnit'] ?>"
@@ -102,6 +102,14 @@
     </div>
     </div>
     <!-- Modal Edit -->
+    <?php 
+        foreach($residences as $i):
+            $residence_id=$i['residence_id'];
+            $address=$i['address'];
+            $numUnits=$i['numUnits'];
+            $sizePerUnit=$i['sizePerUnit'];
+            $monthlyRental=$i['monthlyRental'];
+        ?>
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -109,20 +117,20 @@
                 <h4 class="modal-title">Edit Residence</h4>
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             </div>
-            <form class="form-horizontal" action="<?php echo base_url('admin/ubahSub')?>" method="post" enctype="multipart/form-data" role="form">
+            <form class="form-horizontal" action="<?php echo base_url('admin/ubahResidence')?>" method="post" enctype="multipart/form-data" role="form">
             <div class="modal-body">
             <div class="form-group">
-                <input type="hidden" id="residene_id" name="residence_id">
-                <input type="text" class="form-control " id="address" name="address" placeholder="Address">
+                <input type="hidden" id="residence_id" name="residence_id">
+                <input type="text" class="form-control " id="address" name="address" placeholder="Address" value="<?php echo $address;?>">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="numUnits" name="numUnits" placeholder="Number Of Unit">
+                <input type="text" class="form-control " id="numUnits" name="numUnits" placeholder="Number Of Unit" value="<?php echo $numUnits;?>">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="sizePerUnit" name="sizePerUnit" placeholder="Size Per Unit">
+                <input type="text" class="form-control " id="sizePerUnit" name="sizePerUnit" placeholder="Size Per Unit" value="<?php echo $sizePerUnit;?>">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="monthlyRental" name="monthlyRental" placeholder="Monthly Rental">
+                <input type="text" class="form-control " id="monthlyRental" name="monthlyRental" placeholder="Monthly Rental" value="<?php echo $monthlyRental;?>">
             </div>
             </div>
             <div class="modal-footer">
@@ -133,7 +141,8 @@
         </div>
     </div>
 </div>
-<!-- END Modal Ubah -->
+<?php endforeach;?>
+<!-- END Modal edit -->
 <script src="<?php echo base_url('assets/js/jquery-3.4.1.min.js');?>"></script>
 <script>
     $(document).ready(function() {

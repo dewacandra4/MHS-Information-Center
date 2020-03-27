@@ -119,12 +119,17 @@ class Admin extends CI_Controller
 
     function addResidence()
     {
+        //ini fungsinya untuk menampilkan seluruh residene yang di handle housing officer
+        $lol = $this->session->userdata('username');//mengambil username officer yang login sekarang
+        $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;//mencari user id si username
+        $staff_id = $this->db->query("SELECT `staff_id` FROM `housing_officer` WHERE `user_id` = '$result'")->row()->staff_id;//mencari staff id si username berdasarkan user_idnya
         $this->form_validation->set_rules('address', 'Address', 'required');
         $this->form_validation->set_rules('numUnits', 'Number Of Unit', 'required');
         $this->form_validation->set_rules('sizePerUnit', 'Size Per Unit', 'required');
         $this->form_validation->set_rules('monthlyRental', 'Monthly Rental', 'required');
 
         $dataArray = [
+            'staff_id'=>$staff_id,
             'address' => $this->input->post('address',true),
             'numUnits' => $this->input->post('numUnits',true),
             'sizePerUnit' => $this->input->post('sizePerUnit',true), 
@@ -151,17 +156,7 @@ class Admin extends CI_Controller
         }
 
     }
-    function ubah()
-    {
-        $id = $this->input->post('id');
-        $data = array(
-            'menu'=> $this->input->post('menu')
-        );
-        $this->menu->ubah($data,$id);
-        $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert"> Data Berhasil diubah <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        redirect('menu');
-    }
-    function ubahSub()
+    function ubahResidence()
     {
         $residence_id = $this->input->post('residence_id');
         $data = array(
@@ -180,13 +175,6 @@ class Admin extends CI_Controller
 
         //redirect
         redirect('admin/setup_residence');
-    }
-    public function hapusM($id)
-    {
-        $this->menu->deleteMenu($id);
-
-        //redirect
-        redirect('menu');
     }
     
 }

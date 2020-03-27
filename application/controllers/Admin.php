@@ -103,6 +103,24 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
 
     }
+    public function view_application()
+    {
+        $data['title'] = 'View Applicaiton';
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        //ini fungsinya untuk menampilkan seluruh residene yang di handle housing officer
+        $lol = $this->session->userdata('username');//mengambil username officer yang login sekarang
+        $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;//mencari user id si username
+        $staff_id = $this->db->query("SELECT `staff_id` FROM `housing_officer` WHERE `user_id` = '$result'")->row()->staff_id;//mencari staff id si username berdasarkan user_idnya
+        $residence = $this->db->query("SELECT * FROM `residences` WHERE `staff_id` = $staff_id");//mencari residence yang di handle berdasarkan staff id
+        $row = $residence->result_array();//menampilkan seluruh data residence
+        $data['residences'] = $row;
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar-admin',$data);
+        $this->load->view('templates/topbar',$data);
+        $this->load->view('admin/view_application',$data);//ngirim variable user data ke page User nanti 
+        $this->load->view('templates/footer');
+
+    }
 
     function addResidence()
     {

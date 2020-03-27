@@ -105,7 +105,7 @@ class Admin extends CI_Controller
     }
     public function view_application()
     {
-        $data['title'] = 'View Applicaitonsssss';
+        $data['title'] = 'View Applicaiton';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
         //ini fungsinya untuk menampilkan seluruh residene yang di handle housing officer
         $lol = $this->session->userdata('username');//mengambil username officer yang login sekarang

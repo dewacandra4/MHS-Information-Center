@@ -70,6 +70,12 @@
       <i class="fas fa-fw fa-file-alt"></i>
       <span>View Applications</span></a>
   </li>
+    <!-- Nav Item - Charts -->
+    <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('admin/allocate');?>">
+      <i class="fas fa-fw fa-file-alt"></i>
+      <span>Allocate Housing</span></a>
+  </li>
 
   <hr class="sidebar-divider d-none d-md-block">
   <li class="nav-item">

@@ -24,7 +24,6 @@
                             <th scope="col">RequiredMonth</th>
                             <th scope="col">RequiredYear</th>
                             <th scope="col">Status</th>
-                            <th scope="col">action</th>
 
 
                         </tr>
@@ -42,8 +41,6 @@
                             <td><?= $sm['requiredMonth']; ?></td>
                             <td><?= $sm['requiredYear']; ?></td>
                             <td><?= $sm['status']; ?></td>
-                            <td><button class="badge badge-pill badge-success">Accept</button>
-                            <button class="badge badge-pill badge-danger">Decline</button></td>
 
 
                             <td>

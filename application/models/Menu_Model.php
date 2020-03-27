@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Menu_model extends CI_Model
 {
 
+    
     function ubahSub($data, $residence_id)
     {
         $this->db->where('residence_id',$residence_id);

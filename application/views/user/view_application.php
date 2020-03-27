@@ -34,7 +34,7 @@
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $sm['application_id']; ?></td>
                             <td><?= $sm['residence_id']; ?></td>
-                            <td><?= $sm['applicationDate']; ?></td>
+                            <td><?=  date('d F yy', $sm['applicationDate']); ?></td>
                             <td><?= $sm['requiredMonth']; ?></td>
                             <td><?= $sm['requiredYear']; ?></td>
                             <td><?= $sm['status']; ?></td>

@@ -121,20 +121,25 @@ class Admin extends CI_Controller
 
     function addResidence()
     {
+        //ini fungsinya untuk menampilkan seluruh residene yang di handle housing officer
+        $lol = $this->session->userdata('username');//mengambil username officer yang login sekarang
+        $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;//mencari user id si username
+        $staff_id = $this->db->query("SELECT `staff_id` FROM `housing_officer` WHERE `user_id` = '$result'")->row()->staff_id;//mencari staff id si username berdasarkan user_idnya
         $this->form_validation->set_rules('address', 'Address', 'required');
-        $this->form_validation->set_rules('numUnits', 'Number Of Unit', 'required');
-        $this->form_validation->set_rules('sizePerUnit', 'Size Per Unit', 'required');
-        $this->form_validation->set_rules('monthlyRental', 'Monthly Rental', 'required');
+        $this->form_validation->set_rules('numunits', 'Number Of Unit', 'required');
+        $this->form_validation->set_rules('size_per_unit', 'Size Per Unit', 'required');
+        $this->form_validation->set_rules('monthly_rental', 'Monthly Rental', 'required');
 
         $dataArray = [
+            'staff_id'=>$staff_id,
             'address' => $this->input->post('address',true),
-            'numUnits' => $this->input->post('numUnits',true),
-            'sizePerUnit' => $this->input->post('sizePerUnit',true), 
-            'monthlyRental' => $this->input->post('monthlyRental',true)
+            'numunits' => $this->input->post('numunits',true),
+            'size_per_unit' => $this->input->post('size_per_unit',true), 
+            'monthly_rental' => $this->input->post('monthly_rental',true)
         ];
         if($this->form_validation->run() == false)
         {
-            $data['title'] = 'My Profile';
+            $data['title'] = 'Setup Residences';
             $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
             $data['residences'] = $this->db->get('residences')->result_array();
             $this->load->view('templates/header',$data);
@@ -153,28 +158,44 @@ class Admin extends CI_Controller
         }
 
     }
-    function ubah()
+    function ubahResidence()
     {
-        $id = $this->input->post('id');
-        $data = array(
-            'menu'=> $this->input->post('menu')
-        );
-        $this->menu->ubah($data,$id);
-        $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert"> Data Berhasil diubah <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        redirect('menu');
-    }
-    function ubahSub()
-    {
+       
+        
+        $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('numunits', 'Number Of Unit', 'required');
+        $this->form_validation->set_rules('size_per_unit', 'Size Per Unit', 'required');
+        $this->form_validation->set_rules('monthly_rental', 'Monthly Rental', 'required');
         $residence_id = $this->input->post('residence_id');
         $data = array(
             'address'=> $this->input->post('address'),
-            'numUnits' => $this->input->post('numUnits'),
-            'sizePerUnit'=> $this->input->post('sizePerUnit'),
-            'monthlyRental'=> $this->input->post('monthlyRental'),
+            'numunits' => $this->input->post('numunits'),
+            'size_per_unit'=> $this->input->post('size_per_unit'),
+            'monthly_rental'=> $this->input->post('monthly_rental'),
         );
-        $this->menu->ubahSub($data,$residence_id);
-        $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert"> Data Berhasil diubah <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        redirect('admin/setup_residence');
+        if($this->form_validation->run() == false)
+        {
+            $data['title'] = 'Setup Residences';
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            //ini fungsinya untuk menampilkan seluruh residene yang di handle housing officer
+            $lol = $this->session->userdata('username');//mengambil username officer yang login sekarang
+            $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;//mencari user id si username
+            $staff_id = $this->db->query("SELECT `staff_id` FROM `housing_officer` WHERE `user_id` = '$result'")->row()->staff_id;//mencari staff id si username berdasarkan user_idnya
+            $residence = $this->db->query("SELECT * FROM `residences` WHERE `staff_id` = $staff_id");//mencari residence yang di handle berdasarkan staff id
+            $row = $residence->result_array();//menampilkan seluruh data residence
+            $data['residences'] = $row;
+            // $data['residences'] = $this->db->get('residences')->result_array();
+            $this->load->view('templates/header',$data);
+            $this->load->view('templates/sidebar-admin',$data);
+            $this->load->view('templates/topbar',$data);
+            $this->load->view('admin/setup_residence',$data);//ngirim variable user data ke page User nanti 
+            $this->load->view('templates/footer');
+        }
+        else{
+            $this->menu->ubahSub($data,$residence_id);
+            $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert"> Data Berhasil diubah <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('admin/setup_residence');
+        }
     }
     public function hapusS($id)
     {
@@ -182,13 +203,6 @@ class Admin extends CI_Controller
 
         //redirect
         redirect('admin/setup_residence');
-    }
-    public function hapusM($id)
-    {
-        $this->menu->deleteMenu($id);
-
-        //redirect
-        redirect('menu');
     }
     
 }

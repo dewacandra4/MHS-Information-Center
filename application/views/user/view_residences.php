@@ -29,27 +29,27 @@
 
                     <tbody>
                         <?php $i = 1; ?>
-                        <?php foreach($residences as $sm) : ?>
+                        <?php foreach($residences as $sm) {?>
                         <tr>
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $sm['residence_id']; ?></td>
                             <td><?= $sm['address']; ?></td>
-                            <td><?= $sm['numUnits']; ?></td>
-                            <td><?= $sm['sizePerUnit']; ?></td>
-                            <td><?= $sm['monthlyRental']; ?></td>
+                            <td><?= $sm['numunits']; ?></td>
+                            <td><?= $sm['size_per_unit']; ?></td>
+                            <td><?= $sm['monthly_rental']; ?></td>
                             <td>
                             <a 
                                 href="javascript:;"
-                                data-id="<?php echo $sm['residence_id'] ?>"
+                                data-residence_id="<?php echo $sm['residence_id'] ?>"
                                 data-address="<?php echo $sm['address'] ?>"
-                                data-numUnits="<?php echo $sm['numUnits'] ?>"
-                                data-sizePerUnit="<?php echo $sm['sizePerUnit'] ?>"
+                                data-numunits="<?php echo $sm['numunits'] ?>"
+                                data-size_per_unit="<?php echo $sm['size_per_unit'] ?>"
+                                data-size_per_unit="<?php echo $sm['monthly_rental'] ?>"
                                 data-toggle="modal" data-target="#edit-data">
-
-                                <button data-toggle="modal" data-target="#ubah-data" class="badge badge-pill badge-success">Apply residence</button>
+                                <button data-toggle="modal" data-target="#ubah-data" class="badge badge-pill badge-success" >Apply</button>
                         </tr>
                         <?php $i++; ?>
-                        <?php endforeach ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -65,6 +65,14 @@
       <!-- Button trigger modal -->
 
     <!-- Modal Apply -->
+    <?php 
+        foreach($residences as $i):
+            $residence_id=$i['residence_id'];
+            $address=$i['address'];
+            $numunits=$i['numunits'];
+            $size_per_unit=$i['size_per_unit'];
+            $monthly_rental=$i['monthly_rental'];
+        ?>
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -72,20 +80,14 @@
                 <h4 class="modal-title">Apply for the Residence</h4>
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             </div>
-            <form class="form-horizontal" action="<?php echo base_url('admin/ubahSub')?>" method="post" enctype="multipart/form-data" role="form">
+            <form class="form-horizontal" action="<?php echo base_url('user/applyResidence')?>" method="post" enctype="multipart/form-data" role="form">
             <div class="modal-body">
             <div class="form-group">
-                <input type="hidden" id="residene_id" name="residence_id">
-                <input type="text" class="form-control " id="address" name="address" placeholder="Address">
+                <input type="hidden" id="residence_id" name="residence_id">
+                <input type="text" class="form-control " id="requiredMonth" name="requiredMonth" placeholder="Required Month">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="numUnits" name="numUnits" placeholder="Number Of Unit">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control " id="sizePerUnit" name="sizePerUnit" placeholder="Size Per Unit">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control " id="monthlyRental" name="monthlyRental" placeholder="Monthly Rental">
+                <input type="text" class="form-control " id="requiredYear" name="requiredYear" placeholder="Required Year">
             </div>
             </div>
             <div class="modal-footer">
@@ -96,6 +98,7 @@
         </div>
     </div>
 </div>
+<?php endforeach;?>
 <!-- END Modal Ubah -->
 <script src="<?php echo base_url('assets/js/jquery-3.4.1.min.js');?>"></script>
 <script>
@@ -108,9 +111,8 @@
             // Isi nilai pada field
             modal.find('#residence_id').attr("value",div.data('residence_id'));
             modal.find('#address').attr("value",div.data('address'));
-            modal.find('#numUnits').attr("value",div.data('numUnits'));
-            modal.find('#sizePerUnit').attr("value",div.data('sizePerUnit'));
-            modal.find('#monthlyRental').attr("value",div.data('monthlyRental'));  
+            modal.find('#requiredMonth').attr("value",div.data('requiredMonth'));
+            modal.find('#requiredYear').attr("value",div.data('requiredYear'));
         });
     });
 </script>

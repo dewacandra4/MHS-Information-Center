@@ -105,7 +105,10 @@ class User extends CI_Controller
     {
         $data['title'] = 'View Residences';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $data['residences'] = $this->db->get('residences')->result_array();
+        $residence = $this->db->query("SELECT * FROM `residences`");//mencari residence yang di handle berdasarkan staff id
+        $row = $residence->result_array();//menampilkan seluruh data residence
+        $data['residences'] = $row;
+        // $data['residences'] = $this->db->get('residences')->result_array();
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-user',$data);
         $this->load->view('templates/topbar',$data);
@@ -128,6 +131,44 @@ class User extends CI_Controller
         $this->load->view('templates/topbar',$data);
         $this->load->view('user/view_application',$data);//ngirim variable user data ke page User nanti 
         $this->load->view('templates/footer');
+    }
+
+    function applyResidence()
+    {
+        $this->form_validation->set_rules('requiredMonth', 'Required Month', 'required');
+        $this->form_validation->set_rules('requiredYear', 'Required Year', 'required');
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;
+        $query = $this->db->query("SELECT `applicant_id` FROM `applicant` WHERE `user_id` = $result");
+        $row = $query->row();
+        $id = $row->applicant_id;
+        $dataArray = [
+            'applicant_id' => $id,
+            'residence_id' => $this->input->post('residence_id',true), 
+            'requiredMonth' => $this->input->post('requiredMonth',true),
+            'requiredYear' => $this->input->post('requiredYear',true),
+            'applicationDate' => time(),
+            'status' => 'INCOMPLETE',
+        ];
+        if($this->form_validation->run() == false)
+        {
+            $data['title'] = 'View Residences';
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            $data['residences'] = $this->db->get('residences')->result_array();
+            $this->load->view('templates/header',$data);
+            $this->load->view('templates/sidebar-admin',$data);
+            $this->load->view('templates/topbar',$data);
+            $this->load->view('user/view_residences',$data);//ngirim variable user data ke page User nanti 
+            $this->load->view('templates/footer');
+        }
+        else
+        {
+            $this->db->insert('application', $dataArray);
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application has been submitted! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('user/view_residences');
+        }
     }
 
 }

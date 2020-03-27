@@ -113,4 +113,16 @@ class User extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function view_application()
+    {
+        $data['title'] = 'View application';
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $data['application'] = $this->db->get('application')->result_array();
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar-user',$data);
+        $this->load->view('templates/topbar',$data);
+        $this->load->view('user/view_application',$data);//ngirim variable user data ke page User nanti 
+        $this->load->view('templates/footer');
+    }
+
 }

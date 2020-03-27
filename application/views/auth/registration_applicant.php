@@ -8,10 +8,14 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
-              <form class="user" method="post" action="<?= base_url('auth/registration');?>">
+              <form class="user" method="post" action="<?= base_url('auth/registration_applicant');?>">
                 <div class="form-group">
                     <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Full Name" value="<?=set_value('name');?>">
                     <?= form_error('name','<small class="text-danger pl-3">','</small>'); ?>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Username" value="<?=set_value('username');?>">
+                    <?= form_error('username','<small class="text-danger pl-3">','</small>'); ?>
                 </div>
                 <div class="form-group">
                   <input placeholder="Enter monthly income or 0 if not" type="number" id="monthlyIncome" name="monthlyIncome" class="form-control form-control-user pt-1 pb-1"  style="border-radius: 18px;" value="<?=set_value('monthlyIncome');?>">

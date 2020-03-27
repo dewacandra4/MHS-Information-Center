@@ -18,7 +18,8 @@
       <ul class="navbar-nav mr-auto">
       </ul>
       <ul class="navbar-nav navbar-right">
-        <li><a href="<?=base_url('auth/registration'); ?>" class="px-2 "><button type="button" class="btn btn-primary my-2"><i class="fas fa-door-open "></i> Register</button></a></li>
+        <li><a href="<?=base_url('auth/registration_applicant'); ?>" class="px-2 "><button type="button" class="btn btn-primary my-2"><i class="fas fa-door-open "></i> Register as Applicant</button></a></li>
+        <li><a href="<?=base_url('auth/registration_officer'); ?>" class="px-2 "><button type="button" class="btn btn-primary my-2"><i class="fas fa-door-open "></i> Register as Housing Officer</button></a></li>
         <li><a href="<?=base_url('auth/login'); ?>" class="px-2"><button type="button" class="btn btn-primary my-2"><i class="fas fa-sign-in-alt"></i> Login</button></a></li>
         
       </ul>

@@ -33,7 +33,7 @@
 
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('profile');?>">
+    <a class="nav-link" href="<?= base_url('admin/profile');?>">
       <i class="fas fa-fw fa-user"></i>
       <span>Profile</span>
     </a>
@@ -41,7 +41,7 @@
 
   <!-- Nav Item - Utilities Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="<?= base_url('admin/edit');?>">
       <i class="fas fa-fw fa-user-edit"></i>
       <span>Edit Profile</span>
     </a>
@@ -57,7 +57,7 @@
 
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
-    <a class="nav-link " href="#">
+    <a class="nav-link " href="<?= base_url('admin/setup_residence');?>">
       <i class="fas fa-fw fa-home"></i>
       <span>Setup Residence</span>
     </a>
@@ -66,7 +66,7 @@
 
   <!-- Nav Item - Charts -->
   <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link" href="#">
       <i class="fas fa-fw fa-file-alt"></i>
       <span>View Applications</span></a>
   </li>
@@ -87,3 +87,11 @@
 
 </ul>
 <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+

@@ -45,6 +45,7 @@
                                 data-address="<?php echo $sm['address'] ?>"
                                 data-numunits="<?php echo $sm['numunits'] ?>"
                                 data-size_per_unit="<?php echo $sm['size_per_unit'] ?>"
+                                data-monthly_rental="<?php echo $sm['monthly_rental'] ?>"
                                 data-toggle="modal" data-target="#edit-data">
 
                                 <button data-toggle="modal" data-target="#ubah-data" class="badge badge-pill badge-success">Edit</button>

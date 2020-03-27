@@ -66,7 +66,7 @@
 
   <!-- Nav Item - Charts -->
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="<?= base_url('admin/view_application');?>">
       <i class="fas fa-fw fa-file-alt"></i>
       <span>View Applications</span></a>
   </li>

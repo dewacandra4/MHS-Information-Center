@@ -116,6 +116,20 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function allocate()
+    {
+        $data['title'] = 'Allocate Housing';
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $application = $this->db->query("SELECT * FROM `application` WHERE `status` = 'New' OR `status` = 'Waitlist' ");
+        $row = $application->result_array();
+        $data['application'] = $row;
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar-admin',$data);
+        $this->load->view('templates/topbar',$data);
+        $this->load->view('admin/allocate',$data);//ngirim variable user data ke page User nanti 
+        $this->load->view('templates/footer');
+    }
+
 
     function addResidence()
     {

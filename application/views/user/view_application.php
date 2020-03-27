@@ -18,7 +18,6 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">ApplicationID</th>
-                            <th scope="col">ApplicantID</th>
                             <th scope="col">ResidenceID</th>
                             <th scope="col">ApplicationDate</th>
                             <th scope="col">RequiredMonth</th>
@@ -34,7 +33,6 @@
                         <tr>
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $sm['application_id']; ?></td>
-                            <td><?= $sm['applicant_id']; ?></td>
                             <td><?= $sm['residence_id']; ?></td>
                             <td><?= $sm['applicationDate']; ?></td>
                             <td><?= $sm['requiredMonth']; ?></td>

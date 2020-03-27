@@ -30,21 +30,21 @@
 
                     <tbody>
                         <?php $i = 1; ?>
-                        <?php foreach($residences as $sm) : ?>
+                        <?php foreach($residences as $sm) { ?>
                         <tr>
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $sm['residence_id']; ?></td>
                             <td><?= $sm['address']; ?></td>
-                            <td><?= $sm['numUnits']; ?></td>
-                            <td><?= $sm['sizePerUnit']; ?></td>
-                            <td><?= $sm['monthlyRental']; ?></td>
+                            <td><?= $sm['numunits']; ?></td>
+                            <td><?= $sm['size_per_unit']; ?></td>
+                            <td><?= $sm['monthly_rental']; ?></td>
                             <td>
                             <a 
                                 href="javascript:;"
                                 data-residence_id="<?php echo $sm['residence_id'] ?>"
                                 data-address="<?php echo $sm['address'] ?>"
-                                data-numUnits="<?php echo $sm['numUnits'] ?>"
-                                data-sizePerUnit="<?php echo $sm['sizePerUnit'] ?>"
+                                data-numunits="<?php echo $sm['numunits'] ?>"
+                                data-size_per_unit="<?php echo $sm['size_per_unit'] ?>"
                                 data-toggle="modal" data-target="#edit-data">
 
                                 <button data-toggle="modal" data-target="#ubah-data" class="badge badge-pill badge-success">Edit</button>
@@ -53,7 +53,7 @@
                             </td>
                         </tr>
                         <?php $i++; ?>
-                        <?php endforeach ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -84,13 +84,13 @@
                 <input type="text" class="form-control " id="address" name="address" placeholder="Address">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="numUnits" name="numUnits" placeholder="Number Of Unit">
+                <input type="text" class="form-control " id="numunits" name="numunits" placeholder="Number Of Unit">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="sizePerUnit" name="sizePerUnit" placeholder="Size Per Unit">
+                <input type="text" class="form-control " id="size_per_unit" name="size_per_unit" placeholder="Size Per Unit">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="monthlyRental" name="monthlyRental" placeholder="Monthly Rental">
+                <input type="text" class="form-control " id="monthly_rental" name="monthly_rental" placeholder="Monthly Rental">
             </div>
             </div>
             <div class="modal-footer">
@@ -106,9 +106,9 @@
         foreach($residences as $i):
             $residence_id=$i['residence_id'];
             $address=$i['address'];
-            $numUnits=$i['numUnits'];
-            $sizePerUnit=$i['sizePerUnit'];
-            $monthlyRental=$i['monthlyRental'];
+            $numunits=$i['numunits'];
+            $size_per_unit=$i['size_per_unit'];
+            $monthly_rental=$i['monthly_rental'];
         ?>
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
     <div class="modal-dialog">
@@ -124,13 +124,13 @@
                 <input type="text" class="form-control " id="address" name="address" placeholder="Address" value="<?php echo $address;?>">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="numUnits" name="numUnits" placeholder="Number Of Unit" value="<?php echo $numUnits;?>">
+                <input type="text" class="form-control " id="numunits" name="numunits" placeholder="Number Of Unit" value="<?php echo $numunits;?>">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="sizePerUnit" name="sizePerUnit" placeholder="Size Per Unit" value="<?php echo $sizePerUnit;?>">
+                <input type="text" class="form-control " id="size_per_unit" name="size_per_unit" placeholder="Size Per Unit" value="<?php echo $size_per_unit;?>">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control " id="monthlyRental" name="monthlyRental" placeholder="Monthly Rental" value="<?php echo $monthlyRental;?>">
+                <input type="text" class="form-control " id="monthly_rental" name="monthly_rental" placeholder="Monthly Rental" value="<?php echo $monthly_rental;?>">
             </div>
             </div>
             <div class="modal-footer">
@@ -154,9 +154,9 @@
             // Isi nilai pada field
             modal.find('#residence_id').attr("value",div.data('residence_id'));
             modal.find('#address').attr("value",div.data('address'));
-            modal.find('#numUnits').attr("value",div.data('numUnits'));
-            modal.find('#sizePerUnit').attr("value",div.data('sizePerUnit'));
-            modal.find('#monthlyRental').attr("value",div.data('monthlyRental'));  
+            modal.find('#numunits').attr("value",div.data('numunits'));
+            modal.find('#size_per_unit').attr("value",div.data('size_per_unit'));
+            modal.find('#monthly_rental').attr("value",div.data('monthly_rental'));  
         });
     });
 </script>

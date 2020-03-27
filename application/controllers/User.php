@@ -105,7 +105,10 @@ class User extends CI_Controller
     {
         $data['title'] = 'View Residences';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $data['residences'] = $this->db->get('residences')->result_array();
+        $residence = $this->db->query("SELECT * FROM `residences`");//mencari residence yang di handle berdasarkan staff id
+        $row = $residence->result_array();//menampilkan seluruh data residence
+        $data['residences'] = $row;
+        // $data['residences'] = $this->db->get('residences')->result_array();
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-user',$data);
         $this->load->view('templates/topbar',$data);
@@ -141,7 +144,7 @@ class User extends CI_Controller
         $id = $row->applicant_id;
         $dataArray = [
             'applicant_id' => $id,
-            'residence_id' =>$this->input->post('residence_id',true) , 
+            'residence_id' => $this->input->post('residence_id',true), 
             'requiredMonth' => $this->input->post('requiredMonth',true),
             'requiredYear' => $this->input->post('requiredYear',true),
             'applicationDate' => time(),

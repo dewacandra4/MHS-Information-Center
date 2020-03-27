@@ -29,26 +29,27 @@
 
                     <tbody>
                         <?php $i = 1; ?>
-                        <?php foreach($residences as $sm) : ?>
+                        <?php foreach($residences as $sm) {?>
                         <tr>
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $sm['residence_id']; ?></td>
                             <td><?= $sm['address']; ?></td>
-                            <td><?= $sm['numUnits']; ?></td>
-                            <td><?= $sm['sizePerUnit']; ?></td>
-                            <td><?= $sm['monthlyRental']; ?></td>
+                            <td><?= $sm['numunits']; ?></td>
+                            <td><?= $sm['size_per_unit']; ?></td>
+                            <td><?= $sm['monthly_rental']; ?></td>
                             <td>
                             <a 
                                 href="javascript:;"
-                                data-id="<?php echo $sm['residence_id'] ?>"
+                                data-residence_id="<?php echo $sm['residence_id'] ?>"
                                 data-address="<?php echo $sm['address'] ?>"
-                                data-numUnits="<?php echo $sm['numUnits'] ?>"
-                                data-sizePerUnit="<?php echo $sm['sizePerUnit'] ?>"
-                                data-toggle="modal" data-target="#apply-data">
-                                <button data-toggle="modal" data-target="#apply-data" class="badge badge-pill badge-success">Apply</button>
+                                data-numunits="<?php echo $sm['numunits'] ?>"
+                                data-size_per_unit="<?php echo $sm['size_per_unit'] ?>"
+                                data-size_per_unit="<?php echo $sm['monthly_rental'] ?>"
+                                data-toggle="modal" data-target="#edit-data">
+                                <button data-toggle="modal" data-target="#ubah-data" class="badge badge-pill badge-success" >Apply</button>
                         </tr>
                         <?php $i++; ?>
-                        <?php endforeach ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -64,7 +65,15 @@
       <!-- Button trigger modal -->
 
     <!-- Modal Apply -->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="apply-data" class="modal fade">
+    <?php 
+        foreach($residences as $i):
+            $residence_id=$i['residence_id'];
+            $address=$i['address'];
+            $numunits=$i['numunits'];
+            $size_per_unit=$i['size_per_unit'];
+            $monthly_rental=$i['monthly_rental'];
+        ?>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -89,17 +98,19 @@
         </div>
     </div>
 </div>
+<?php endforeach;?>
 <!-- END Modal Ubah -->
 <script src="<?php echo base_url('assets/js/jquery-3.4.1.min.js');?>"></script>
 <script>
     $(document).ready(function() {
         // Untuk sunting
-        $('#apply-data').on('show.bs.modal', function (event) {
+        $('#edit-data').on('show.bs.modal', function (event) {
             var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
             var modal          = $(this)
  
             // Isi nilai pada field
             modal.find('#residence_id').attr("value",div.data('residence_id'));
+            modal.find('#address').attr("value",div.data('address'));
             modal.find('#requiredMonth').attr("value",div.data('requiredMonth'));
             modal.find('#requiredYear').attr("value",div.data('requiredYear'));
         });

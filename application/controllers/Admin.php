@@ -106,18 +106,6 @@ class Admin extends CI_Controller
 
     public function view_application()
     {
-        $data['title'] = 'View application';
-        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $data['application'] = $this->db->get('application')->result_array();
-        $this->load->view('templates/header',$data);
-        $this->load->view('templates/sidebar-admin',$data);
-        $this->load->view('templates/topbar',$data);
-        $this->load->view('admin/view_application',$data);//ngirim variable user data ke page User nanti 
-        $this->load->view('templates/footer');
-    }
-
-    public function allocate()
-    {
         $data['title'] = 'Allocate Housing';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
         $application = $this->db->query("SELECT * FROM `application` WHERE `status` = 'New' OR `status` = 'Waitlist' ");
@@ -126,7 +114,7 @@ class Admin extends CI_Controller
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-admin',$data);
         $this->load->view('templates/topbar',$data);
-        $this->load->view('admin/allocate',$data);//ngirim variable user data ke page User nanti 
+        $this->load->view('admin/view_application',$data);
         $this->load->view('templates/footer');
     }
 

@@ -17,7 +17,8 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">residenceID</th>
+                            <th scope="col">Residence ID</th>
+                            <th scope="col">Staff ID</th>
                             <th scope="col">Address</th>
                             <th scope="col">Number Of Unit</th>
                             <th scope="col">Size Per Unit(m2)</th>
@@ -33,6 +34,7 @@
                         <tr>
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $sm['residence_id']; ?></td>
+                            <td><?= $sm['staff_id']; ?></td>
                             <td><?= $sm['address']; ?></td>
                             <td><?= $sm['numunits']; ?></td>
                             <td><?= $sm['size_per_unit']; ?></td>
@@ -41,6 +43,7 @@
                             <a 
                                 href="javascript:;"
                                 data-residence_id="<?php echo $sm['residence_id'] ?>"
+                                data-staff_id="<?php echo $sm['staff_id'] ?>"
                                 data-address="<?php echo $sm['address'] ?>"
                                 data-numunits="<?php echo $sm['numunits'] ?>"
                                 data-size_per_unit="<?php echo $sm['size_per_unit'] ?>"
@@ -68,6 +71,7 @@
     <?php 
         foreach($residences as $i):
             $residence_id=$i['residence_id'];
+            $staff_id=$i['staff_id'];
             $address=$i['address'];
             $numunits=$i['numunits'];
             $size_per_unit=$i['size_per_unit'];
@@ -84,6 +88,7 @@
             <div class="modal-body">
             <div class="form-group">
                 <input type="hidden" id="residence_id" name="residence_id">
+                <input type="hidden" id="staff_id" name="staff_id">
                 <input type="text" class="form-control " id="requiredMonth" name="requiredMonth" placeholder="Required Month">
             </div>
             <div class="form-group">
@@ -110,6 +115,7 @@
  
             // Isi nilai pada field
             modal.find('#residence_id').attr("value",div.data('residence_id'));
+            modal.find('#staff_id').attr("value",div.data('staff_id'));
             modal.find('#address').attr("value",div.data('address'));
             modal.find('#requiredMonth').attr("value",div.data('requiredMonth'));
             modal.find('#requiredYear').attr("value",div.data('requiredYear'));

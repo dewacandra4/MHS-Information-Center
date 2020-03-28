@@ -35,9 +35,15 @@
       <img src="<?= base_url('assets/'); ?>images/logo/logoMHS.png" >
   </div>
   <!-- End of Header -->
+  <div class="interest mb-4">
+    <h2>Come and join with us</h2>
+    <h3>Create your account now here !</h3>
+    <button class="btn btn-warning px-5 mx-3"><a href="<?=base_url('auth/registration_applicant');?>">Join as Applicant!</a></button>
+    <button class="btn btn-warning px-4 mx-3"><a href="<?=base_url('auth/registration_officer'); ?>">Join as Housing Officer!</a></button>
+  </div>
   <!-- Feature -->
-  <div class="container">
-    <h1 class="mb-4">Services</h1>
+  <div class="container bg-gradient-light">
+    <h1 class="mb-4 text-center">Services</h1>
     <div class="responsive">
       <div class="gallery">
         <a>
@@ -85,18 +91,12 @@
     <div class="clearfix"></div>
   </div>
   <!-- End of Features -->
-  <div class="interest">
-    <h2>Are you interested?</h2>
-    <h3>Create your account now here !</h3>
-    <button class="btn- btn-primary"><a href="#">Click Here!</a></button>
-  </div>
+
   <!-- Footer -->
-  <footer class="sticky-footer bg-white">
-    <div class="container my-auto">
+  <footer class="sticky-footer bg-light ">
       <div class="copyright text-center my-auto">
-        <span>Copyright &copy; MHSCenter 2020</span>
+        <span>Copyright &copy;  MHS Infromation Center 2020</span>
       </div>
-    </div>
   </footer>
   <!-- End of Footer -->
   </footer>

@@ -145,6 +145,7 @@ class User extends CI_Controller
         $dataArray = [
             'applicant_id' => $id,
             'residence_id' => $this->input->post('residence_id',true), 
+            'staff_id' => $this->input->post('staff_id',true),
             'requiredMonth' => $this->input->post('requiredMonth',true),
             'requiredYear' => $this->input->post('requiredYear',true),
             'applicationDate' => time(),

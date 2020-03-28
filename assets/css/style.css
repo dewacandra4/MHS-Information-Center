@@ -367,66 +367,6 @@ ul li a:hover{
     animation-delay: 9s; /*Not Working :(*/
 }
 /*End FadeIn Animation*/
-/*Start Partnership*/
-#partner 
-{
-    /*background: url(images/partners/bg1.jpg) 50% 50% no-repeat;*/
-    background-color: white;
-    background-size: cover;
-}
-
-#partner 
-{
-    color: #fff;
-    text-align: center;
-    margin-top: 0;
-    height: auto;
-    padding-top: 10px;
-    padding-bottom:40px;
-}
-
-#partner h2 
-{
-    color: black;
-    font-size:45px;
-    font-weight:600;
-}
-
-.partners ul 
-{
-    display: block;
-    justify-content: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: auto;
-}
-
-.partners ul li
-{
-    list-style: none;
-    display: inline-block;
-    width: 15%;
-}
-
-.partners ul li a img 
-{
-    width: 60%;
-    height: auto;
-    margin-top: 4px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-@media screen and (max-width: 450px)
-{
-    .partners ul li a img 
-    {
-        width: 250%;
-    }
-}
-/*End Partner*/
 /*Start Interest*/
 .interest
 {
@@ -434,7 +374,7 @@ ul li a:hover{
     text-align: center;
     margin-top: 0;
     height: auto;
-    background: black;
+    background: #3399CC;
     padding-top: 10px;
     padding-bottom:15px;
 }
@@ -461,12 +401,11 @@ ul li a:hover{
 /*Start Footer*/
 footer
 {
-    margin: 10px;
+    margin-top: 0px;
     padding-top: 20px;
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-bottom:20px;
-    background:grey;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom:29px;
 } 
 
 /*End Footer*/

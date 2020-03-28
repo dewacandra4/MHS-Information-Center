@@ -106,7 +106,7 @@ class Admin extends CI_Controller
 
     public function view_application()
     {
-        $data['title'] = 'Allocate Housing';
+        $data['title'] = 'View Application';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
         $application = $this->db->query("SELECT * FROM `application` WHERE `status` = 'New' OR `status` = 'Waitlist' ");
         $row = $application->result_array();

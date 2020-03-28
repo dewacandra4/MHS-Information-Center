@@ -12,6 +12,14 @@ class User extends CI_Controller
     {
         $data['title'] = 'Dashboard Applicant';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $users = $this->db->query("SELECT * FROM `user`");
+        $residence = $this->db->query("SELECT * FROM `residences`");
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;
+        $application = $this->db->query("SELECT * FROM `application` WHERE `applicant_id` = $result");
+        $data['total_user'] = $users->num_rows();
+        $data['total_applications'] = $application->num_rows();
+        $data['total_residences'] = $residence->num_rows();
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-user',$data);
         $this->load->view('templates/topbar',$data);
@@ -120,7 +128,7 @@ class User extends CI_Controller
     {
         $data['title'] = 'View application';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $data['application'] = $this->db->get('application')->result_array();
+        // $data['application'] = $this->db->get('application')->result_array();
         $lol = $this->session->userdata('username');
         $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;
         $application = $this->db->query("SELECT * FROM `application` WHERE `applicant_id` = $result");

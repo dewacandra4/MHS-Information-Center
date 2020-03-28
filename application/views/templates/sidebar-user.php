@@ -17,7 +17,7 @@
   Applicant
 </div>
 <!-- Nav Item - Dashboard -->
-<li class="nav-item active">
+<li class="nav-item">
   <a class="nav-link" href="<?=base_url('user');?>">
     <i class="fas fa-fw fa-tachometer-alt"></i>
     <span>Dashboard</span></a>

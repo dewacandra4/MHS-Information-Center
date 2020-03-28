@@ -108,7 +108,10 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'View Application';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $application = $this->db->query("SELECT * FROM `application` WHERE `status` = 'New' OR `status` = 'Waitlist' ");
+        $lol = $this->session->userdata('username');//mengambil username officer yang login sekarang
+        $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;
+        $staff_id = $this->db->query("SELECT `staff_id` FROM `housing_officer` WHERE `user_id` = '$result'")->row()->staff_id;
+        $application = $this->db->query("SELECT * FROM `application` WHERE (`status` = 'New' OR `status` = 'Waitlist') AND `Staff_id`=' $staff_id' ");
         $row = $application->result_array();
         $data['application'] = $row;
         $this->load->view('templates/header',$data);
@@ -116,6 +119,7 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar',$data);
         $this->load->view('admin/view_application',$data);
         $this->load->view('templates/footer');
+        
     }
 
 

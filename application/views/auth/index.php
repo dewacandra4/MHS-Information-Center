@@ -52,7 +52,7 @@
         </a>
           <h2>Setup residences</h2>
           <div class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>
-      </div>
+      </div> 
     </div>
     <div class="responsive">
       <div class="gallery ">
@@ -94,7 +94,7 @@
   <!-- Footer -->
   <footer class="sticky-footer bg-light ">
       <div class="copyright text-center my-auto">
-        <span>Copyright &copy;  MHS Infromation Center 2020</span>
+        <span>Copyright &copy;  MHS Infromation Center <?= date("Y");?></span>
       </div>
   </footer>
   <!-- End of Footer -->

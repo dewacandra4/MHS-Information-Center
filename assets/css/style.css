@@ -329,6 +329,38 @@ ul li a:hover{
     clear: both;
 }
 
+.card-dash 
+{ 
+    margin: auto;
+    width: 150px; 
+    height: 150px; 
+    background: rgb(27, 183, 255); 
+    border-radius: 50%;
+} 
+
+.card-dash :hover
+{
+    transition: 0.4s;
+    margin-top: 0;
+    width: 150px;
+    height: 150px;
+    background: white; 
+    border-radius: 0; 
+}
+.card-dash i
+{
+    line-height: 150px;
+    font-size: 50px;
+    color: white;
+}
+.card-dash i:hover
+{
+    line-height: 150px;
+    font-size: 50px;
+    color: rgb(27, 183, 255); ;
+}
+
+
 /*End Gallery benefit*/
 
 /*Start FadeIn Animation*/

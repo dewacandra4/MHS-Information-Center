@@ -13,12 +13,11 @@
                 <?= $this->session->flashdata('message');?>
 
 
-                <table class="table table-hover">
-                    <thead>
+                <table class="table table-responsive-lg table-striped table-hover">
+                    <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Residence ID</th>
-                            <th scope="col">Staff ID</th>
                             <th scope="col">Address</th>
                             <th scope="col">Number Of Unit</th>
                             <th scope="col">Size Per Unit(m2)</th>
@@ -34,7 +33,6 @@
                         <tr>
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $sm['residence_id']; ?></td>
-                            <td><?= $sm['staff_id']; ?></td>
                             <td><?= $sm['address']; ?></td>
                             <td><?= $sm['numunits']; ?></td>
                             <td><?= $sm['size_per_unit']; ?></td>

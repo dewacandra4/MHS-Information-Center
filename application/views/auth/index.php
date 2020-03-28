@@ -36,10 +36,9 @@
   </div>
   <!-- End of Header -->
   <div class="interest mb-4">
-    <h2>Come and join with us</h2>
-    <h3>Create your account now here !</h3>
-    <button class="btn btn-warning px-5 mx-3"><a href="<?=base_url('auth/registration_applicant');?>">Join as Applicant!</a></button>
-    <button class="btn btn-warning px-4 mx-3"><a href="<?=base_url('auth/registration_officer'); ?>">Join as Housing Officer!</a></button>
+    <h2>Come and join with us <br> Create your account now here !</h2>
+    <button class="btn btn-warning my-1 px-5 mx-3"><a href="<?=base_url('auth/registration_applicant');?>">Join as Applicant!</a></button>
+    <button class="btn btn-warning my-1 px-4 mx-3"><a href="<?=base_url('auth/registration_officer'); ?>">Join as Housing Officer!</a></button>
   </div>
   <!-- Feature -->
   <div class="container bg-gradient-light">
@@ -73,7 +72,7 @@
               <i class="fa fa-location-arrow"></i>
             </div>
         </a>
-          <h2>Power Ranger</h2>
+          <h2>Easy to Use</h2>
           <div class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>
       </div>
     </div>
@@ -81,10 +80,10 @@
       <div class="gallery ">
         <a>
           <div class="circle fadein">
-            <i class="fa fa-comments"></i>
+            <i class="fa fa-user-friends"></i>
           </div>
         </a>
-          <h2>Ultramen Realgood</h2>
+          <h2>User-Friendly</h2>
           <div class="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</div>
       </div>
     </div>

@@ -1,5 +1,5 @@
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid ">
 
         <!-- Page Heading -->
         <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
@@ -13,20 +13,18 @@
                 <?= $this->session->flashdata('message');?>
 
 
-                <table class="table table-hover">
-                    <thead>
+                <table class="table table-responsive-lg table-striped table-hover">
+                    <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">ApplicationID</th>
-                            <th scope="col">ApplicantID</th>
-                            <th scope="col">ResidenceID</th>
-                            <th scope="col">ApplicationDate</th>
-                            <th scope="col">RequiredMonth</th>
-                            <th scope="col">RequiredYear</th>
+                            <th scope="col">Application ID</th>
+                            <th scope="col">Applicant ID</th>
+                            <th scope="col">Residence ID</th>
+                            <th scope="col">Application Date</th>
+                            <th scope="col">Req Month</th>
+                            <th scope="col">Req Year</th>
                             <th scope="col">Status</th>
-                            <th scope="col">action</th>
-
-
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
 
@@ -44,9 +42,6 @@
                             <td><?= $sm['status']; ?></td>
                             <td><button class="badge badge-pill badge-success">Accept</button>
                             <button class="badge badge-pill badge-danger">Decline</button></td>
-
-
-                            <td>
                         </tr>
                         <?php $i++; ?>
                         <?php endforeach ?>

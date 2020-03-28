@@ -14,14 +14,14 @@
 
                 <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newSubMenuModal">Add Residence</a>
 
-                <table class="table table-hover">
-                    <thead>
+                <table class="table table-responsive-lg table-striped table-hover">
+                    <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">residenceID</th>
+                            <th scope="col">Residence ID</th>
                             <th scope="col">Address</th>
-                            <th scope="col">Number Of Unit</th>
-                            <th scope="col">Size Per Unit(m2)</th>
+                            <th scope="col">Number of Unit</th>
+                            <th scope="col">Size/Unit(m2)</th>
                             <th scope="col">Monthly Rental(RM)</th>
                             <th scope="col">Action</th>
 

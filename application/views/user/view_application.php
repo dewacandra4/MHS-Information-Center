@@ -13,8 +13,8 @@
                 <?= $this->session->flashdata('message');?>
 
 
-                <table class="table table-hover">
-                    <thead>
+                <table class="table table-responsive-lg table-striped table-hover">
+                    <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">ApplicationID</th>
@@ -37,9 +37,7 @@
                             <td><?=  date('d F yy', $sm['applicationDate']); ?></td>
                             <td><?= $sm['requiredMonth']; ?></td>
                             <td><?= $sm['requiredYear']; ?></td>
-                            <td><?= $sm['status']; ?></td>
-                            
-                            <td>
+                            <td><?= $sm['status'];?></td>
                         </tr>
                         <?php $i++; ?>
                         <?php endforeach ?>

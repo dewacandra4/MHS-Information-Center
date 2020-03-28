@@ -149,7 +149,7 @@ class User extends CI_Controller
             'requiredMonth' => $this->input->post('requiredMonth',true),
             'requiredYear' => $this->input->post('requiredYear',true),
             'applicationDate' => time(),
-            'status' => 'INCOMPLETE',
+            'status' => 'New',
         ];
         if($this->form_validation->run() == false)
         {

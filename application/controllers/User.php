@@ -165,7 +165,7 @@ class User extends CI_Controller
             $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
             $data['residences'] = $this->db->get('residences')->result_array();
             $this->load->view('templates/header',$data);
-            $this->load->view('templates/sidebar-admin',$data);
+            $this->load->view('templates/sidebar-user',$data);
             $this->load->view('templates/topbar',$data);
             $this->load->view('user/view_residences',$data);//ngirim variable user data ke page User nanti 
             $this->load->view('templates/footer');

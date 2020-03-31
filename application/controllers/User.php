@@ -131,7 +131,8 @@ class User extends CI_Controller
         $data['application'] = $this->db->get('application')->result_array();
         $lol = $this->session->userdata('username');
         $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;
-        $application = $this->db->query("SELECT * FROM `application` WHERE `applicant_id` = $result");
+        $applicant_id = $this->db->query("SELECT `applicant_id` FROM `applicant` WHERE `user_id` = '$result'")->row()->applicant_id;
+        $application = $this->db->query("SELECT * FROM `application` WHERE `applicant_id` = $applicant_id");
         $row = $application->result_array();
         $data['application'] = $row;
         $this->load->view('templates/header',$data);

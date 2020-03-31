@@ -50,7 +50,7 @@
 
                                 <button data-toggle="modal" data-target="#ubah-data" class="badge badge-pill badge-success">Edit</button>
 
-                                <a href="<?=base_url('admin/hapusS/'.$sm['residence_id']);?>" class="badge badge-pill badge-danger">Delete</a>
+                                <a href="<?=base_url('admin/deleteResidence/'.$sm['residence_id']);?>" class="badge badge-pill badge-danger">Delete</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -118,7 +118,7 @@
                 <h4 class="modal-title">Edit Residence</h4>
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             </div>
-            <form class="form-horizontal" action="<?php echo base_url('admin/ubahResidence')?>" method="post" enctype="multipart/form-data" role="form">
+            <form class="form-horizontal" action="<?php echo base_url('admin/editResidence')?>" method="post" enctype="multipart/form-data" role="form">
             <div class="modal-body">
             <div class="form-group">
                 <input type="hidden" id="residence_id" name="residence_id">

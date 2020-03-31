@@ -24,7 +24,7 @@ class Admin extends CI_Controller
         $data['total_residences'] = $residence->num_rows();
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-admin',$data);
-        $this->load->view('templates/topbar',$data);
+        $this->load->view('templates/topbar-admin',$data);
         $this->load->view('admin/index',$data);//ngirim variable admin data ke page Admin nanti 
         $this->load->view('templates/footer');
     }
@@ -34,7 +34,7 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-admin',$data);
-        $this->load->view('templates/topbar',$data);
+        $this->load->view('templates/topbar-admin',$data);
         $this->load->view('admin/profile',$data);//ngirim variable user data ke page User nanti 
         $this->load->view('templates/footer');
     }
@@ -48,7 +48,7 @@ class Admin extends CI_Controller
         {
             $this->load->view('templates/header',$data);
             $this->load->view('templates/sidebar-admin',$data);
-            $this->load->view('templates/topbar',$data);
+            $this->load->view('templates/topbar-admin',$data);
             $this->load->view('admin/edit',$data);//ngirim variable user data ke page User nanti 
             $this->load->view('templates/footer');
         }
@@ -108,7 +108,7 @@ class Admin extends CI_Controller
         $data['residences'] = $row;
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-admin',$data);
-        $this->load->view('templates/topbar',$data);
+        $this->load->view('templates/topbar-admin',$data);
         $this->load->view('admin/setup_residence',$data);//ngirim variable user data ke page User nanti 
         $this->load->view('templates/footer');
 
@@ -126,7 +126,7 @@ class Admin extends CI_Controller
         $data['application'] = $row;
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-admin',$data);
-        $this->load->view('templates/topbar',$data);
+        $this->load->view('templates/topbar-admin',$data);
         $this->load->view('admin/view_application',$data);
         $this->load->view('templates/footer');
         
@@ -158,7 +158,7 @@ class Admin extends CI_Controller
             $data['residences'] = $this->db->get('residences')->result_array();
             $this->load->view('templates/header',$data);
             $this->load->view('templates/sidebar-admin',$data);
-            $this->load->view('templates/topbar',$data);
+            $this->load->view('templates/topbar-admin',$data);
             $this->load->view('admin/setup_residence',$data);//ngirim variable user data ke page User nanti 
             $this->load->view('templates/footer');
         }
@@ -172,7 +172,7 @@ class Admin extends CI_Controller
         }
 
     }
-    function ubahResidence()
+    function editResidence()
     {
        
         
@@ -201,20 +201,24 @@ class Admin extends CI_Controller
             // $data['residences'] = $this->db->get('residences')->result_array();
             $this->load->view('templates/header',$data);
             $this->load->view('templates/sidebar-admin',$data);
-            $this->load->view('templates/topbar',$data);
+            $this->load->view('templates/topbar-admin',$data);
             $this->load->view('admin/setup_residence',$data);//ngirim variable user data ke page User nanti 
             $this->load->view('templates/footer');
         }
         else{
             $this->menu->ubahSub($data,$residence_id);
-            $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert"> Data Berhasil diubah <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Successfully Edited! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
             redirect('admin/setup_residence');
         }
     }
-    public function hapusS($id)
+    public function deleteResidence($id)
     {
         $this->menu->deleteSub($id);
-
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Residence successfully deleted! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button></div>');
         //redirect
         redirect('admin/setup_residence');
     }

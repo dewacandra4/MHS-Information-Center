@@ -140,9 +140,9 @@ class Admin extends CI_Controller
         $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;//mencari user id si username
         $staff_id = $this->db->query("SELECT `staff_id` FROM `housing_officer` WHERE `user_id` = '$result'")->row()->staff_id;//mencari staff id si username berdasarkan user_idnya
         $this->form_validation->set_rules('address', 'Address', 'required');
-        $this->form_validation->set_rules('numunits', 'Number Of Unit', 'required');
-        $this->form_validation->set_rules('size_per_unit', 'Size Per Unit', 'required');
-        $this->form_validation->set_rules('monthly_rental', 'Monthly Rental', 'required');
+        $this->form_validation->set_rules('numunits', 'Number Of Unit', 'required|numeric');
+        $this->form_validation->set_rules('size_per_unit', 'Size Per Unit', 'required|numeric');
+        $this->form_validation->set_rules('monthly_rental', 'Monthly Rental', 'required|numeric');
 
         $dataArray = [
             'staff_id'=>$staff_id,
@@ -155,12 +155,19 @@ class Admin extends CI_Controller
         {
             $data['title'] = 'Setup Residences';
             $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-            $data['residences'] = $this->db->get('residences')->result_array();
+            //ini fungsinya untuk menampilkan seluruh residene yang di handle housing officer
+            $lol = $this->session->userdata('username');//mengambil username officer yang login sekarang
+            $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;//mencari user id si username
+            $staff_id = $this->db->query("SELECT `staff_id` FROM `housing_officer` WHERE `user_id` = '$result'")->row()->staff_id;//mencari staff id si username berdasarkan user_idnya
+            $residence = $this->db->query("SELECT * FROM `residences` WHERE `staff_id` = $staff_id");//mencari residence yang di handle berdasarkan staff id
+            $row = $residence->result_array();//menampilkan seluruh data residence
+            $data['residences'] = $row;
             $this->load->view('templates/header',$data);
             $this->load->view('templates/sidebar-admin',$data);
             $this->load->view('templates/topbar-admin',$data);
             $this->load->view('admin/setup_residence',$data);//ngirim variable user data ke page User nanti 
             $this->load->view('templates/footer');
+            // redirect('admin/setup_residence');
         }
         else
         {
@@ -174,12 +181,10 @@ class Admin extends CI_Controller
     }
     function editResidence()
     {
-       
-        
         $this->form_validation->set_rules('address', 'Address', 'required');
-        $this->form_validation->set_rules('numunits', 'Number Of Unit', 'required');
-        $this->form_validation->set_rules('size_per_unit', 'Size Per Unit', 'required');
-        $this->form_validation->set_rules('monthly_rental', 'Monthly Rental', 'required');
+        $this->form_validation->set_rules('numunits', 'Number Of Unit', 'required|numeric');
+        $this->form_validation->set_rules('size_per_unit', 'Size Per Unit', 'required|numeric');
+        $this->form_validation->set_rules('monthly_rental', 'Monthly Rental', 'required|numeric');
         $residence_id = $this->input->post('residence_id');
         $data = array(
             'address'=> $this->input->post('address'),
@@ -206,7 +211,7 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         }
         else{
-            $this->menu->ubahSub($data,$residence_id);
+            $this->menu->editRes($data,$residence_id);
             $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Successfully Edited! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');

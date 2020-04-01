@@ -6,7 +6,7 @@ class Menu_model extends CI_Model
 {
 
     
-    function ubahSub($data, $residence_id)
+    function editRes($data, $residence_id)
     {
         $this->db->where('residence_id',$residence_id);
         $this->db->update('residences', $data);

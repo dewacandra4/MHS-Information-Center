@@ -29,8 +29,9 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                      <h5>Don't have an acocunt ? </h5>
-                    <a class="medium" href="<?=base_url('auth/registration'); ?>">Create an Account here !</a>
+                      <h5>Don't have an acocunt ? Create an Account here !</h5>
+                    <a href="<?=base_url('auth/registration_officer'); ?>"><button type="button" class="btn btn-primary px-4 my-2">Housing Officer</button></a>
+                    <a href="<?=base_url('auth/registration_applicant'); ?>"><button type="button" class="btn btn-primary px-5">Applicant</button></a>
                   </div>
                 </div>
               </div>

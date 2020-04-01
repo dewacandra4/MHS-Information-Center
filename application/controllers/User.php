@@ -92,7 +92,7 @@ class User extends CI_Controller
                 }
                 else
                 {
-                    echo $this->upload->dispay_errors();
+                    echo $this->upload->display_errors();
                 }
 
             }

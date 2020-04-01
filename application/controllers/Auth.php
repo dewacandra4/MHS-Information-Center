@@ -44,7 +44,7 @@ class Auth extends CI_Controller {
         $user = $this->db->get_where('user', ['username' => $username])->row_array();
         if($user)
         {
-            //cek password yang dh d hash (pw_verify)
+            //check password (pw_verify)
             if(password_verify($password, $user['password']))
             {
                 //siapin data username dan role id

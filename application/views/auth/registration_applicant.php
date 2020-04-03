@@ -18,7 +18,7 @@
                     <?= form_error('username','<small class="text-danger pl-3">','</small>'); ?>
                 </div>
                 <div class="form-group">
-                  <input placeholder="Enter monthly income or 0 if not" type="number" id="monthlyIncome" name="monthlyIncome" class="form-control form-control-user pt-1 pb-1"  style="border-radius: 18px;" value="<?=set_value('monthlyIncome');?>">
+                  <input placeholder="Enter monthly income" type="number" id="monthlyIncome" name="monthlyIncome" class="form-control form-control-user pt-1 pb-1"  style="border-radius: 18px;" value="<?=set_value('monthlyIncome');?>">
                   <?= form_error('monthlyIncome','<small class="text-danger pl-3">','</small>'); ?>
                 </div>
                 <div class="form-group">

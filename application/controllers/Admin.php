@@ -227,6 +227,51 @@ class Admin extends CI_Controller
         //redirect
         redirect('admin/setup_residence');
     }
+
+    public function waitlistApp($application_id)
+    {
+            $data1=array('status'=>"Waitlist");
+            $this->menu->waitlistA($data1, $application_id);
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application status has been set to Waitlist <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            //redirect
+            redirect('admin/view_application');
+
+        
+    }
+
+    public function approveApp($application_id)
+    {
+            $ap_id = $this->db->query("SELECT `applicant_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->applicant_id;
+            $re_id = $this->db->query("SELECT `residence_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->residence_id;
+            $data2=array('status'=>"Approved");
+            $this->menu->autoReject($ap_id);
+            $this->menu->autoReject2($re_id);
+            $this->menu->approveA($data2, $application_id);
+            //to delete the residence that has been allocated from the available residence list
+            $this->menu->deleteSub($re_id);
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            //redirect
+            redirect('admin/view_application');
+
+        
+    }
+
+    public function declineApp($application_id)
+    {
+            $data1=array('status'=>"Rejected");
+            $this->menu->decA($data1, $application_id);
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application status has been set to Waitlist <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            //redirect
+            redirect('admin/view_application');
+
+        
+    }
     
 }
 

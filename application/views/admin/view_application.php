@@ -40,18 +40,38 @@
                             <td><?= $sm['requiredMonth']; ?></td>
                             <td><?= $sm['requiredYear']; ?></td>
                             <td><?= $sm['status']; ?></td>
-                            <td><button class="badge badge-pill badge-success">Accept</button>
-                            <button class="badge badge-pill badge-danger">Decline</button></td>
+                            <td><button data-toggle="modal" data-target="#accData" class="badge badge-pill badge-success">accept</button>
+                            <a href="<?=base_url('admin/declineApp/'.$sm['application_id']);?>" class="badge badge-pill badge-danger">Decline</a></td>
                         </tr>
                         <?php $i++; ?>
-                        <?php endforeach ?>
+                        <?php endforeach?>
                     </tbody>
                 </table>
             </div>
         </div>
         </div>
-    <!-- /.container-fluid -->
-
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="accData" class="modal fade">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Set Application Status</h4>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+            <form class="form-horizontal" method="post" enctype="multipart/form-data" role="form">
+            <div class="modal-body">
+            <div class="form-group">
+                <a href="<?=base_url('admin/approveApp/'.$sm['application_id']);?>" class="badge badge-pill badge-success">Approve</a>
+                <a href="<?=base_url('admin/waitlistApp/'.$sm['application_id']);?>" class="badge badge-pill badge-danger">Waitlist</a>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
 </div>
 <!-- End of Main Content -->
 

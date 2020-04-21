@@ -27,7 +27,6 @@
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <?php $i = 1; ?>
                         <?php foreach($application as $sm) : ?>
@@ -49,36 +48,47 @@
                     </tbody>
                 </table>
             </div>
+            
         </div>
         </div>
-        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="accData" class="modal fade">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Set Date and Duration</h4>
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            </div>
-            <form class="form-horizontal" action="<?= base_url('admin/approveApp/'.$sm['application_id']); ?>" method="post" enctype="multipart/form-data" role="form">
-            <div class="modal-body">
-            <div class="form-group">
-                <input type="date" class="form-control " id="fromDate" name="fromDate" placeholder="From Date">
-            </div>
-            <div class="form-group">
-                <input type="date" class="form-control " id="endDate" name="endDate" placeholder="End Date">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control " id="duration" name="duration" placeholder="Duration (Month)">
-            </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-info">Approve</button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
-            </div>
-            </form>
-        </div>
-    </div>
-    
-</div>
-<!-- End of Main Content -->
+    <!-- /.container-fluid -->
 
-       
+
+</div>
+        <?php foreach($application as $i):?>
+            <div class="modal fade" id="accData" tabindex="-1" role="dialog" aria-labelledby="newSubMenuModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newSubMenuModalLabel">Set Date and Duration</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form class="form-horizontal" action="<?= base_url('admin/approveApp/'.$sm['application_id']); ?>" method="post" enctype="multipart/form-data" role="form">
+                        <div class="modal-body">
+                        <div class="form-group">
+                            <input type="date" class="form-control " id="fromDate" name="fromDate" placeholder="From Date">
+                        </div>
+                        <div class="form-group">
+                            <input type="date" class="form-control " id="endDate" name="endDate" placeholder="End Date">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control " id="duration" name="duration" placeholder="Duration (Month)">
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info">Approve</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach;?>
+    <!-- End of Main Content -->
+    <!-- Modal -->
+    <!-- Button trigger modal -->
+
+    <!-- Modal Allocation-->
+   

@@ -171,11 +171,12 @@ class Admin extends CI_Controller
         }
         else
         {
-            $query = $this->db->query("SELECT * FROM unit;");
+            
             $this->db->insert('residences', $dataArray);
             $insert_id= $this->db->insert_id();
-            $total = $query->num_rows();
             for ($x = 0; $x < $numOfUnit; $x++) {
+                $query = $this->db->query("SELECT * FROM unit;");
+                $total = $query->num_rows();
                 $dataUnit = [
                     'unit_no'=> $total+1,
                     'availability'=>"Available",
@@ -256,33 +257,29 @@ class Admin extends CI_Controller
 
     public function approveApp($application_id)
     {
+        $ap_id = $this->db->query("SELECT `applicant_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->applicant_id;
+        $re_id = $this->db->query("SELECT `residence_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->residence_id;
+        $un_id = $this->db->query("SELECT `unit_id` FROM `unit` WHERE `residence_id` = '$re_id' AND `availability`='Available'")->row()->unit_id;
+        $data2=array('status'=>"Approved");
+        $data4=array('availability'=>"Allocated");
+        $this->menu->autoReject($ap_id);
+        $this->menu->approveA($data2, $application_id);
         
+        $dataArray = [
+            'unit_id'=>$un_id,
+            'application_id' =>$application_id,
+            'fromDate' => $this->input->post('fromDate',true),
+            'duration' => $this->input->post('duration',true),
+            'endDate' => $this->input->post('endDate',true)   
+        ];
 
-            $ap_id = $this->db->query("SELECT `applicant_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->applicant_id;
-            $re_id = $this->db->query("SELECT `residence_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->residence_id;
-            $un_id = $this->db->query("SELECT `unit_id` FROM `unit` WHERE `residence_id` = '$re_id' AND `availability`='Available'")->row()->unit_id;
-            $data2=array('status'=>"Approved");
-            $data4=array('availability'=>"Allocated");
-            $this->menu->autoReject($ap_id);
-            $this->menu->approveA($data2, $application_id);
-            
-            $dataArray = [
-                'unit_id'=>$un_id,
-                'application_id' =>$application_id,
-                'fromDate' => $this->input->post('fromDate',true),
-                'duration' => $this->input->post('duration',true),
-                'endDate' => $this->input->post('endDate',true)   
-            ];
-
-            $this->db->insert('allocation', $dataArray);
-            $this->menu->allocationU($data4,$un_id);
-            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button></div>');
-            //redirect
-            redirect('admin/view_application');
-
-        
+        $this->db->insert('allocation', $dataArray);
+        $this->menu->allocationU($data4,$un_id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button></div>');
+        //redirect
+        redirect('admin/view_application');
     }
 
     public function declineApp($application_id)

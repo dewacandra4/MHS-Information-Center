@@ -67,12 +67,11 @@
                     </div>
                     <form class="form-horizontal" action="<?= base_url('admin/approveApp/'.$sm['application_id']); ?>" method="post" enctype="multipart/form-data" role="form">
                         <div class="modal-body">
+                        <label for="fromDate">From Date: </label><br>
                         <div class="form-group">
                             <input type="date" class="form-control " id="fromDate" name="fromDate" placeholder="From Date">
                         </div>
-                        <div class="form-group">
-                            <input type="date" class="form-control " id="endDate" name="endDate" placeholder="End Date">
-                        </div>
+                        <label for="duration">Duration: </label><br>
                         <div class="form-group">
                             <input type="text" class="form-control " id="duration" name="duration" placeholder="Duration (Month)">
                         </div>

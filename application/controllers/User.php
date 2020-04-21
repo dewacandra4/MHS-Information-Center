@@ -149,6 +149,7 @@ class User extends CI_Controller
         $lol = $this->session->userdata('username');
         $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;
         $query = $this->db->query("SELECT `applicant_id` FROM `applicant` WHERE `user_id` = $result");
+        $residence_id = $this->input->post('residence_id',true);
         $row = $query->row();
         $id = $row->applicant_id;
         $dateMonth = $this->input->post('requiredMonth',true);
@@ -166,7 +167,7 @@ class User extends CI_Controller
         {
             $dataArray = [
                 'applicant_id' => $id,
-                'residence_id' => $this->input->post('residence_id',true), 
+                'residence_id' => $residence_id, 
                 'staff_id' => $this->input->post('staff_id',true),
                 'requiredMonth' => $this->input->post('requiredMonth',true),
                 'requiredYear' => $this->input->post('requiredYear',true),

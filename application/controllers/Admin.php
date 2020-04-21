@@ -264,18 +264,22 @@ class Admin extends CI_Controller
         $data4=array('availability'=>"Allocated");
         $this->menu->autoReject($ap_id);
         $this->menu->approveA($data2, $application_id);
+        $formDate = $this->input->post('fromDate',true);
+        $strFormDate = strtotime($formDate);
+        $duration = $this->input->post('duration',true);
+        $endDate = strtotime("+".$duration." month", $strFormDate);
         
         $dataArray = [
             'unit_id'=>$un_id,
             'application_id' =>$application_id,
-            'fromDate' => $this->input->post('fromDate',true),
-            'duration' => $this->input->post('duration',true),
-            'endDate' => $this->input->post('endDate',true)   
+            'fromDate' => $formDate ,
+            'duration' => $duration ,
+            'endDate' => date("Y-m-d",$endDate)
         ];
 
         $this->db->insert('allocation', $dataArray);
         $this->menu->allocationU($data4,$un_id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <?php echo $endDate;?> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button></div>');
         //redirect

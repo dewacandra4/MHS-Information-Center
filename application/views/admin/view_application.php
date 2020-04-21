@@ -41,7 +41,8 @@
                             <td><?= $sm['requiredYear']; ?></td>
                             <td><?= $sm['status']; ?></td>
                             <td><button data-toggle="modal" data-target="#accData" class="badge badge-pill badge-success">accept</button>
-                            <a href="<?=base_url('admin/declineApp/'.$sm['application_id']);?>" class="badge badge-pill badge-danger">Decline</a></td>
+                            <a href="<?=base_url('admin/declineApp/'.$sm['application_id']);?>" class="badge badge-pill badge-danger">Decline</a>
+                            <a href="<?=base_url('admin/waitlistApp/'.$sm['application_id']);?>" class="badge badge-pill badge-danger">Waitlist</a></td>
                         </tr>
                         <?php $i++; ?>
                         <?php endforeach?>
@@ -54,17 +55,23 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Set Application Status</h4>
+                <h4 class="modal-title">Set Date and Duration</h4>
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             </div>
-            <form class="form-horizontal" method="post" enctype="multipart/form-data" role="form">
+            <form class="form-horizontal" action="<?= base_url('admin/approveApp/'.$sm['application_id']); ?>" method="post" enctype="multipart/form-data" role="form">
             <div class="modal-body">
             <div class="form-group">
-                <a href="<?=base_url('admin/approveApp/'.$sm['application_id']);?>" class="badge badge-pill badge-success">Approve</a>
-                <a href="<?=base_url('admin/waitlistApp/'.$sm['application_id']);?>" class="badge badge-pill badge-danger">Waitlist</a>
+                <input type="date" class="form-control " id="fromDate" name="fromDate" placeholder="From Date">
+            </div>
+            <div class="form-group">
+                <input type="date" class="form-control " id="endDate" name="endDate" placeholder="End Date">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control " id="duration" name="duration" placeholder="Duration (Month)">
             </div>
             </div>
             <div class="modal-footer">
+                <button type="submit" class="btn btn-info">Approve</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
             </div>
             </form>

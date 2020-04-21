@@ -41,14 +41,6 @@ class Menu_model extends CI_Model
         return TRUE;
     }
     
-    //when one application for spesific residence approved, application by another applicant to those residence will also set to “Rejected”
-    public function autoReject2($residence_id)
-    {
-        $data3=array('status'=>"Rejected");
-        $this->db->where('residence_id', $residence_id);
-        $this->db->update('application', $data3);
-        return TRUE;
-    }
     //set application Status to Decline
     public function decA($data1, $application_id)
     {
@@ -56,6 +48,15 @@ class Menu_model extends CI_Model
         $this->db->update('application', $data1);
         return TRUE;
     }
+
+    //to set the availability for the spesific unit to allocated when the unit has been allocated
+    public function allocationU($data4,$unit_id)
+    {
+        $this->db->where('unit_id', $unit_id); 
+        $this->db->update('unit', $data4);
+        return TRUE;
+    }
+
 
 
 

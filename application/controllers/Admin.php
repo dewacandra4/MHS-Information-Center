@@ -143,11 +143,11 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('numunits', 'Number Of Unit', 'required|numeric');
         $this->form_validation->set_rules('size_per_unit', 'Size Per Unit', 'required|numeric');
         $this->form_validation->set_rules('monthly_rental', 'Monthly Rental', 'required|numeric');
-
+        $numOfUnit = $this->input->post('numunits',true);
         $dataArray = [
             'staff_id'=>$staff_id,
             'address' => $this->input->post('address',true),
-            'numunits' => $this->input->post('numunits',true),
+            'numunits' =>$numOfUnit,
             'size_per_unit' => $this->input->post('size_per_unit',true), 
             'monthly_rental' => $this->input->post('monthly_rental',true)
         ];
@@ -171,7 +171,20 @@ class Admin extends CI_Controller
         }
         else
         {
+            $query = $this->db->query("SELECT * FROM unit;");
             $this->db->insert('residences', $dataArray);
+            $insert_id= $this->db->insert_id();
+            $total = $query->num_rows();
+            for ($x = 0; $x < $numOfUnit; $x++) {
+                $dataUnit = [
+                    'unit_no'=> $total+1,
+                    'availability'=>"Available",
+                    'residence_id'=>$insert_id,
+
+                    
+                ];
+                $this->db->insert('unit',$dataUnit);
+            }
             $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">New Residence has been added! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');

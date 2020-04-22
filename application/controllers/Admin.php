@@ -262,29 +262,67 @@ class Admin extends CI_Controller
         $un_id = $this->db->query("SELECT `unit_id` FROM `unit` WHERE `residence_id` = '$re_id' AND `availability`='Available'")->row()->unit_id;
         $data2=array('status'=>"Approved");
         $data4=array('availability'=>"Allocated");
-        $this->menu->autoReject($ap_id);
-        $this->menu->approveA($data2, $application_id);
         $formDate = $this->input->post('fromDate',true);
         $strFormDate = strtotime($formDate);
         $duration = $this->input->post('duration',true);
         $endDate = strtotime("+".$duration." month", $strFormDate);
         
-        $dataArray = [
-            'unit_id'=>$un_id,
-            'application_id' =>$application_id,
-            'fromDate' => $formDate ,
-            'duration' => $duration ,
-            'endDate' => date("Y-m-d",$endDate)
-            
-        ];
+        if($formDate==NULL)
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please Enter the Form Date! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('admin/view_application');
+        }
 
-        $this->db->insert('allocation', $dataArray);
-        $this->menu->allocationU($data4,$un_id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <?php echo $endDate;?> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button></div>');
-        //redirect
-        redirect('admin/view_application');
+        else
+        {
+            $requredDate = date("m-Y", $strFormDate);
+            if(date("m-Y", time()) > $requredDate)//validate user input, user cannot select past dates
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+                redirect('admin/view_application');
+            }
+    
+            else
+            {
+                if($duration!=NULL)
+                {   
+                    $this->menu->autoReject($ap_id);
+                    $this->menu->approveA($data2, $application_id);
+                }
+        
+                else
+                {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please Select the Duration! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('admin/view_application');
+                }
+        
+            
+                $dataArray = [
+                    'unit_id'=>$un_id,
+                    'application_id' =>$application_id,
+                    'fromDate' => $formDate ,
+                    'duration' => $duration ,
+                    'endDate' => date("Y-m-d",$endDate)
+                    
+                ];
+    
+                $this->db->insert('allocation', $dataArray);
+                $this->menu->allocationU($data4,$un_id);
+                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <?php echo $endDate;?> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+                //redirect
+                redirect('admin/view_application');
+            }
+        }
+
+       
     }
 
     public function declineApp($application_id)

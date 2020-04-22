@@ -277,8 +277,8 @@ class Admin extends CI_Controller
 
         else
         {
-            $requredDate = date("m-Y", $strFormDate);
-            if(date("m-Y", time()) > $requredDate)//validate user input, user cannot select past dates
+            $requredDate = date("d-m-Y", $strFormDate);
+            if(date("d-m-Y", time()) > $requredDate)//validate user input, user cannot select past dates
             {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

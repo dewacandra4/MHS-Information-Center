@@ -275,6 +275,7 @@ class Admin extends CI_Controller
             'fromDate' => $formDate ,
             'duration' => $duration ,
             'endDate' => date("Y-m-d",$endDate)
+            
         ];
 
         $this->db->insert('allocation', $dataArray);

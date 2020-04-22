@@ -73,7 +73,8 @@
                         </div>
                         <label for="duration">Duration: </label><br>
                         <div class="form-group">
-                            <input type="text" class="form-control " id="duration" name="duration" placeholder="Duration (Month)">
+                            <input type="radio"  id="duration" name="duration" value="18"> 18 Month &nbsp;&nbsp;
+                            <input type="radio"  id="duration" name="duration" value="12"> 12 Month
                         </div>
                         </div>
                         <div class="modal-footer">

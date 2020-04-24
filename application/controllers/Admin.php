@@ -309,21 +309,18 @@ class Admin extends CI_Controller
         $strFormDate = strtotime($formDate);
         $duration = $this->input->post('duration',true);
         $endDate = strtotime("+".$duration." month", $strFormDate);
-        if($formDate==NULL)
+        if($un_id==NULL)
         {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please Enter the Form Date! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">There is No Available Unit for This Residence <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
             redirect('admin/view_application');
         }
-
         else
         {
-            $requredDate = date("m-Y", $strFormDate);
-            $today = date("m-Y");
-            if($today > $requredDate)//validate user input, user cannot select past dates
+            if($formDate==NULL)
             {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please Enter the Form Date! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');
                 redirect('admin/view_application');
@@ -331,41 +328,55 @@ class Admin extends CI_Controller
     
             else
             {
-                if($duration!=NULL)
-                {   
-                    $this->menu->autoReject($ap_id);
-                    $this->menu->approveA($data2, $application_id);
-                }
-        
-                else
+                $requredDate = date("m-Y", $strFormDate);
+                $today = date("m-Y");
+                if($today > $requredDate)//validate user input, user cannot select past dates
                 {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please Select the Duration! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button></div>');
                     redirect('admin/view_application');
                 }
         
+                else
+                {
+                    if($duration!=NULL)
+                    {   
+                        $this->menu->autoReject($ap_id);
+                        $this->menu->approveA($data2, $application_id);
+                    }
             
-                $dataArray = [
-                    'unit_id'=>$un_id,
-                    'application_id' =>$application_id,
-                    'fromDate' => $formDate ,
-                    'duration' => $duration ,
-                    'endDate' => date("Y-m-d",$endDate)
-                    
-                ];
-    
-                $this->db->insert('allocation', $dataArray);
-                $this->menu->allocationU($data4,$un_id,$re_id);
-                $numUnit = $arr_unit - 1;
-                $this->db->query("UPDATE `residences` SET `numunits` = $numUnit WHERE `residence_id` = $re_id");
-                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <?php echo $endDate;?> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button></div>');
-                //redirect
-                redirect('admin/view_application');
+                    else
+                    {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please Select the Duration! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button></div>');
+                        redirect('admin/view_application');
+                    }
+            
+                
+                    $dataArray = [
+                        'unit_id'=>$un_id,
+                        'application_id' =>$application_id,
+                        'fromDate' => $formDate ,
+                        'duration' => $duration ,
+                        'endDate' => date("Y-m-d",$endDate)
+                        
+                    ];
+        
+                    $this->db->insert('allocation', $dataArray);
+                    $this->menu->allocationU($data4,$un_id,$re_id);
+                    $numUnit = $arr_unit - 1;
+                    $this->db->query("UPDATE `residences` SET `numunits` = $numUnit WHERE `residence_id` = $re_id");
+                    $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <?php echo $endDate;?> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    //redirect
+                    redirect('admin/view_application');
+                }
             }
         }
+        
 
        
     }

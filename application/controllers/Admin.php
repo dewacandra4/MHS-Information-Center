@@ -374,7 +374,7 @@ class Admin extends CI_Controller
     {
             $data1=array('status'=>"Rejected");
             $this->menu->decA($data1, $application_id);
-            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application status has been set to Waitlist <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert"> Application Rejected <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
             //redirect

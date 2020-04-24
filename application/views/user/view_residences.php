@@ -19,7 +19,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Residence ID</th>
                             <th scope="col">Address</th>
-                            <th scope="col">Number Of Unit</th>
+                            <th scope="col">Number Of Unit Available</th>
                             <th scope="col">Size Per Unit(m2)</th>
                             <th scope="col">Monthly Rental(RM)</th>
                             <th scope="col">Action</th>

@@ -132,7 +132,9 @@ class User extends CI_Controller
         $lol = $this->session->userdata('username');
         $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;
         $applicant_id = $this->db->query("SELECT `applicant_id` FROM `applicant` WHERE `user_id` = '$result'")->row()->applicant_id;
-        $application = $this->db->query("SELECT * FROM `application` WHERE `applicant_id` = $applicant_id");
+        $application = $this->db->query("SELECT a.`application_id`,a.`residence_id`,b.`numunits`,b.`monthly_rental`,a.`status`
+        FROM `application` AS a INNER JOIN `residences` AS b on a.`residence_id` = b.`residence_id`
+        WHERE `applicant_id` = $applicant_id");
         $row = $application->result_array();
         $data['application'] = $row;
         $this->load->view('templates/header',$data);

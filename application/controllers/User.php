@@ -116,7 +116,7 @@ class User extends CI_Controller
         $residence = $this->db->query("SELECT * FROM `residences`");//mencari residence yang di handle berdasarkan staff id
         $row = $residence->result_array();//menampilkan seluruh data residence
         $data['residences'] = $row;
-        // $data['residences'] = $this->db->get('residences')->result_array();
+        $data['residences'] = $this->db->get('residences')->result_array();
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-user',$data);
         $this->load->view('templates/topbar-user',$data);

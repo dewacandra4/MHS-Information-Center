@@ -73,7 +73,7 @@
                         <div class="modal-body">
                         <label for="fromDate">From Date: </label><br>
                         <div class="form-group">
-                            <input type="date" class="form-control " id="fromDate" name="fromDate" placeholder="From Date">
+                            <input type="date" class="form-control " id="fromDate" name="fromDate" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>">
                         </div>
                         <label for="duration">Duration: </label><br>
                         <div class="form-group">

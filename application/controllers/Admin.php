@@ -143,11 +143,13 @@ class Admin extends CI_Controller
                 $today = date('d-m-Y');
                 $expDt = date('d-m-Y',strtotime($rows['endDate']));
                 $unit_id = $rows['unit_id'];
+                $re_id =  $this->db->query("SELECT `residence_id` FROM `unit` WHERE `unit`.`unit_id`= $unit_id")->row()->residence_id;
+                $arr_unit = $this->db->query("SELECT `numunits` FROM `residences` WHERE `residence_id` = '$re_id'")->row()->numunits;
+                $numUnits = $arr_unit +1;
                 if($today>=$expDt){
                     $updCltSql = "UPDATE `unit` SET `availability`='Available' WHERE `unit`.`unit_id`= $unit_id";
-                   
+                    $this->db->query("UPDATE `residences` SET `numunits` = $numUnits WHERE `residence_id` = $re_id");
                     $this->db->query($updCltSql);      
-                                            
                 }      
             }
         }
@@ -300,13 +302,13 @@ class Admin extends CI_Controller
         $ap_id = $this->db->query("SELECT `applicant_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->applicant_id;
         $re_id = $this->db->query("SELECT `residence_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->residence_id;
         $un_id = $this->db->query("SELECT `unit_id` FROM `unit` WHERE `residence_id` = '$re_id' AND `availability`='Available'")->row()->unit_id;
+        $arr_unit = $this->db->query("SELECT `numunits` FROM `residences` WHERE `residence_id` = '$re_id'")->row()->numunits;
         $data2=array('status'=>"Approved");
         $data4=array('availability'=>"Allocated");
         $formDate = $this->input->post('fromDate',true);
         $strFormDate = strtotime($formDate);
         $duration = $this->input->post('duration',true);
         $endDate = strtotime("+".$duration." month", $strFormDate);
-        
         if($formDate==NULL)
         {
             $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please Enter the Form Date! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -317,8 +319,9 @@ class Admin extends CI_Controller
 
         else
         {
-            $requredDate = date("d-m-Y", $strFormDate);
-            if(date("d-m-Y", time()) > $requredDate)//validate user input, user cannot select past dates
+            $requredDate = date("m-Y", $strFormDate);
+            $today = date("m-Y");
+            if($today > $requredDate)//validate user input, user cannot select past dates
             {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -354,6 +357,8 @@ class Admin extends CI_Controller
     
                 $this->db->insert('allocation', $dataArray);
                 $this->menu->allocationU($data4,$un_id,$re_id);
+                $numUnit = $arr_unit - 1;
+                $this->db->query("UPDATE `residences` SET `numunits` = $numUnit WHERE `residence_id` = $re_id");
                 $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <?php echo $endDate;?> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');

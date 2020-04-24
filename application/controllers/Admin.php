@@ -121,7 +121,12 @@ class Admin extends CI_Controller
         $lol = $this->session->userdata('username');//mengambil username officer yang login sekarang
         $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;
         $staff_id = $this->db->query("SELECT `staff_id` FROM `housing_officer` WHERE `user_id` = '$result'")->row()->staff_id;
-        $application = $this->db->query("SELECT * FROM `application` WHERE (`status` = 'New' OR `status` = 'Waitlist') AND `Staff_id`=' $staff_id' ");
+        $application = $this->db->query("SELECT a.`application_id`,a.`residence_id`,b.`numunits`,b.`monthly_rental`,c.`username`,d.`monthlyIncome`,
+        a.`requiredMonth`,a.`requiredYear`,a.`status`
+         FROM `application` AS a INNER JOIN `residences` AS b on a.`residence_id` = b.`residence_id`
+         INNER JOIN `applicant` AS d on a.`applicant_id`= d.`applicant_id`
+         INNER JOIN `user` AS c on d.`user_id`=c.`user_id`
+         WHERE (a.`status` = 'New' OR a.`status` = 'Waitlist') AND a.`Staff_id`=' $staff_id' ");
         $row = $application->result_array();
         $data['application'] = $row;
         //Set unit to available if endDate already finish

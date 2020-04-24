@@ -18,9 +18,11 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Application ID</th>
-                            <th scope="col">Applicant ID</th>
                             <th scope="col">Residence ID</th>
-                            <th scope="col">Application Date</th>
+                            <th scope="col">Num Of Unit Available</th>
+                            <th scope="col">Monthly Rental</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Monthly Income</th>
                             <th scope="col">Req Month</th>
                             <th scope="col">Req Year</th>
                             <th scope="col">Status</th>
@@ -33,9 +35,11 @@
                         <tr>
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $sm['application_id']; ?></td>
-                            <td><?= $sm['applicant_id']; ?></td>
                             <td><?= $sm['residence_id']; ?></td>
-                            <td><?=  date('d F yy', $sm['applicationDate']); ?></td>
+                            <td><?= $sm['numunits']; ?></td>
+                            <td><?= $sm['monthly_rental']; ?></td>
+                            <td><?= $sm['username']; ?></td>
+                            <td><?= $sm['monthlyIncome']; ?></td>
                             <td><?= $sm['requiredMonth']; ?></td>
                             <td><?= $sm['requiredYear']; ?></td>
                             <td><?= $sm['status']; ?></td>

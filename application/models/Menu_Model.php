@@ -50,9 +50,10 @@ class Menu_model extends CI_Model
     }
 
     //to set the availability for the spesific unit to allocated when the unit has been allocated
-    public function allocationU($data4,$unit_id)
+    public function allocationU($data4,$unit_id,$residence_id)
     {
         $this->db->where('unit_id', $unit_id); 
+        $this->db->where('residence_id', $residence_id); 
         $this->db->update('unit', $data4);
         return TRUE;
     }

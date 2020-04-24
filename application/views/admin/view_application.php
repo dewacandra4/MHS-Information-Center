@@ -43,9 +43,9 @@
                             <td><?= $sm['requiredMonth']; ?></td>
                             <td><?= $sm['requiredYear']; ?></td>
                             <td><?= $sm['status']; ?></td>
-                            <td><button data-toggle="modal" data-target="#accData" class="badge badge-pill badge-success">accept</button>
+                            <td><button data-toggle="modal" data-target="#accData" class="badge badge-pill badge-success">Accept</button>
                             <a href="<?=base_url('admin/declineApp/'.$sm['application_id']);?>" class="badge badge-pill badge-danger">Decline</a>
-                            <a href="<?=base_url('admin/waitlistApp/'.$sm['application_id']);?>" class="badge badge-pill badge-danger">Waitlist</a></td>
+                            <a href="<?=base_url('admin/waitlistApp/'.$sm['application_id']);?>" class="badge badge-pill badge-warning">Waitlist</a></td>
                         </tr>
                         <?php $i++; ?>
                         <?php endforeach?>

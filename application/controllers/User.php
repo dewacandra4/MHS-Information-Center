@@ -152,50 +152,60 @@ class User extends CI_Controller
         $result= $this->db->query("SELECT `user_id` FROM `user` WHERE `username` = '$lol'")->row()->user_id;
         $query = $this->db->query("SELECT `applicant_id` FROM `applicant` WHERE `user_id` = $result");
         $residence_id = $this->input->post('residence_id',true);
+        $un_id = $this->db->query("SELECT `unit_id` FROM `unit` WHERE `residence_id` = '$residence_id' AND `availability`='Available'")->row()->unit_id;
         $row = $query->row();
         $id = $row->applicant_id;
         $dateMonth = $this->input->post('requiredMonth',true);
         $dateYear = $this->input->post('requiredYear',true);
         $date=strtotime($dateMonth.$dateYear); 
         $requredDate = date("m-Y", $date);
-        if(date("m-Y", time()) > $requredDate)//validate user input, user cannot select past dates
+        if($un_id == null)
         {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button></div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Sorry, there are no available rooms for this residence..<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('user/view_residences');
         }
         else
         {
-            $dataArray = [
-                'applicant_id' => $id,
-                'residence_id' => $residence_id, 
-                'staff_id' => $this->input->post('staff_id',true),
-                'requiredMonth' => $this->input->post('requiredMonth',true),
-                'requiredYear' => $this->input->post('requiredYear',true),
-                'applicationDate' => time(),
-                'status' => 'New',
-            ];
-            if($this->form_validation->run() == false)
+            if(date("m-Y", time()) > $requredDate)//validate user input, user cannot select past dates
             {
-                $data['title'] = 'View Residences';
-                $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-                $data['residences'] = $this->db->get('residences')->result_array();
-                $this->load->view('templates/header',$data);
-                $this->load->view('templates/sidebar-user',$data);
-                $this->load->view('templates/topbar-user',$data);
-                $this->load->view('user/view_residences',$data);//ngirim variable user data ke page User nanti 
-                $this->load->view('templates/footer');
-            }
-            else
-            {
-                $this->db->insert('application', $dataArray);
-                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application has been submitted! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');
                 redirect('user/view_residences');
             }
+            else
+            {
+                $dataArray = [
+                    'applicant_id' => $id,
+                    'residence_id' => $residence_id, 
+                    'staff_id' => $this->input->post('staff_id',true),
+                    'requiredMonth' => $this->input->post('requiredMonth',true),
+                    'requiredYear' => $this->input->post('requiredYear',true),
+                    'applicationDate' => time(),
+                    'status' => 'New',
+                ];
+                if($this->form_validation->run() == false)
+                {
+                    $data['title'] = 'View Residences';
+                    $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+                    $data['residences'] = $this->db->get('residences')->result_array();
+                    $this->load->view('templates/header',$data);
+                    $this->load->view('templates/sidebar-user',$data);
+                    $this->load->view('templates/topbar-user',$data);
+                    $this->load->view('user/view_residences',$data);//ngirim variable user data ke page User nanti 
+                    $this->load->view('templates/footer');
+                }
+                else
+                {
+                    $this->db->insert('application', $dataArray);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application has been submitted! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('user/view_residences');
+                }
+            }
         }
+           
     }
 
 }

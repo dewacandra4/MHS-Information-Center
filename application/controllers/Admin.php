@@ -129,11 +129,46 @@ class Admin extends CI_Controller
          WHERE (a.`status` = 'New' OR a.`status` = 'Waitlist') AND a.`Staff_id`=' $staff_id' ");
         $row = $application->result_array();
         $data['application'] = $row;
+        //Set unit to available if endDate already finish
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "mhs-center";
+        $sql = "SELECT *,allo.`unit_id` as `oid` FROM `allocation` as allo,`unit` as op WHERE allo.`unit_id`=op.`unit_id` AND op.`availability`='Allocated'";
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        $results = $conn->query($sql);
+        if ($results->num_rows > 0) {
+            while($rows = $results->fetch_assoc()) 
+            {
+                $today = date('d-m-Y');
+                $expDt = date('d-m-Y',strtotime($rows['endDate']));
+                $unit_id = $rows['unit_id'];
+                if($today>=$expDt){
+                    $updCltSql = "UPDATE `unit` SET `availability`='Available' WHERE `unit`.`unit_id`= $unit_id";
+                   
+                    $this->db->query($updCltSql);      
+                                            
+                }      
+            }
+        }
+        $selectEnd = $this->db->query("SELECT `endDate` FROM `allocation`")->result_array();
+        $todays = date('Y-m-d');
+        for($i = 0; $i<sizeof($selectEnd); $i++)
+        {
+            $arr = array_values($selectEnd)[$i]['endDate'];
+            if($arr<=$todays)//check if there is a endDate on the allocation that has expired
+            {
+                $allocation_id =  $this->db->query("SELECT `allocation_id` FROM `allocation` WHERE `endDate` = '$arr'")->row()->allocation_id;
+                $deleteAllocation = "DELETE FROM `allocation` WHERE `allocation`.`allocation_id` = $allocation_id";
+                $this->db->query($deleteAllocation); 
+            }
+        }      
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-admin',$data);
         $this->load->view('templates/topbar-admin',$data);
         $this->load->view('admin/view_application',$data);
         $this->load->view('templates/footer');
+        
         
     }
 
@@ -282,8 +317,8 @@ class Admin extends CI_Controller
 
         else
         {
-            $requredDate = date("m-Y", $strFormDate);
-            if(date("m-Y", time()) > $requredDate)//validate user input, user cannot select past dates
+            $requredDate = date("d-m-Y", $strFormDate);
+            if(date("d-m-Y", time()) > $requredDate)//validate user input, user cannot select past dates
             {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -318,7 +353,7 @@ class Admin extends CI_Controller
                 ];
     
                 $this->db->insert('allocation', $dataArray);
-                $this->menu->allocationU($data4,$un_id);
+                $this->menu->allocationU($data4,$un_id,$re_id);
                 $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <?php echo $endDate;?> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');

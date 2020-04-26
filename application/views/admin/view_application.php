@@ -43,7 +43,14 @@
                             <td><?= $sm['requiredMonth']; ?></td>
                             <td><?= $sm['requiredYear']; ?></td>
                             <td><?= $sm['status']; ?></td>
-                            <td><button data-toggle="modal" data-target="#accData" class="badge badge-pill badge-success">Accept</button>
+                            <td>
+                            <a 
+                                href="javascript:;"
+                                data-application_id="<?php echo $sm['application_id'] ?>"
+                                data-residence-id= "<?php echo $sm['residence_id'] ?>"
+                                data-toggle="modal" data-target="#acc-data">    
+                            <button data-toggle="modal" data-target="#ubah-data" class="badge badge-pill badge-success">Accept</button>
+
                             <a href="<?=base_url('admin/declineApp/'.$sm['application_id']);?>" class="badge badge-pill badge-danger">Decline</a>
                             <a href="<?=base_url('admin/waitlistApp/'.$sm['application_id']);?>" class="badge badge-pill badge-warning">Waitlist</a></td>
                         </tr>
@@ -59,8 +66,18 @@
 
 
 </div>
-        <?php foreach($application as $i):?>
-            <div class="modal fade" id="accData" tabindex="-1" role="dialog" aria-labelledby="newSubMenuModalLabel" aria-hidden="true">
+        <?php foreach($application as $i):
+             $application_id = $i['application_id'];
+             $residence_id = $i['residence_id'];
+             $numunits = $i['numunits'];
+             $monthly_rental = $i['monthly_rental'];
+             $username = $i['username'];
+             $monthlyIncome = $i['monthlyIncome'];
+             $requiredMonth=$i['requiredMonth'];
+             $requiredYear=$i['requiredYear'];
+             $status = $i['status'];
+            ?>
+            <div class="modal fade" id="acc-data" tabindex="-1" role="dialog" aria-labelledby="newSubMenuModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -69,10 +86,13 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form class="form-horizontal" action="<?= base_url('admin/approveApp/'.$sm['application_id']); ?>" method="post" enctype="multipart/form-data" role="form">
+                    <form class="form-horizontal" action="<?= base_url('admin/approveApp/');?>" method="post" enctype="multipart/form-data" role="form">
                         <div class="modal-body">
                         <label for="fromDate">From Date: </label><br>
                         <div class="form-group">
+                            <input type="hidden" id="application_id" name="application_id">
+                            <input type="hidden" id="residence_id" name="residence_id">
+                            
                             <input type="date" class="form-control " id="fromDate" name="fromDate" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>">
                         </div>
                         <label for="duration">Duration: </label><br>
@@ -91,8 +111,22 @@
             </div>
         <?php endforeach;?>
     <!-- End of Main Content -->
+    
     <!-- Modal -->
-    <!-- Button trigger modal -->
+<script src="<?php echo base_url('assets/js/jquery-3.4.1.min.js');?>"></script>
+<script>
+    $(document).ready(function() {
+        // Untuk sunting
+        $('#acc-data').on('show.bs.modal', function (event) {
+            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+            var modal          = $(this)
+ 
+            // Isi nilai pada field
+            modal.find('#application_id').attr("value",div.data('application_id'));
+            modal.find('#residence_id').attr("value",div.data('residence_id'));
 
-    <!-- Modal Allocation-->
+        });
+    });
+</script>
+
    

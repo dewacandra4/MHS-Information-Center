@@ -298,8 +298,10 @@ class Admin extends CI_Controller
         
     }
 
-    public function approveApp($application_id)
+    public function approveApp()
     {
+        $application_id = $this->input->post('application_id',true);
+        var_dump($application_id);
         $ap_id = $this->db->query("SELECT `applicant_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->applicant_id;
         $re_id = $this->db->query("SELECT `residence_id` FROM `application` WHERE `application_id` = '$application_id'")->row()->residence_id;
         $un_id = $this->db->query("SELECT `unit_id` FROM `unit` WHERE `residence_id` = '$re_id' AND `availability`='Available'")->row()->unit_id;

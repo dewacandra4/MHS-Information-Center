@@ -354,10 +354,10 @@ class Admin extends CI_Controller
                             'fromDate' => $formDate ,
                             'duration' => $duration ,
                             'endDate' => date("Y-m-d",$endDate)
+                        $this->db->insert('allocation', $dataArray);
                             
                         ];
             
-                        $this->db->insert('allocation', $dataArray);
                         $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Application Approved <?php echo $endDate;?> <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button></div>');

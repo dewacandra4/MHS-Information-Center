@@ -118,6 +118,7 @@ class User extends CI_Controller
         $row = $residence->result_array();//menampilkan seluruh data residence
         $data['residences'] = $row;
         $data['residences'] = $this->db->get('residences')->result_array();
+        
         $this->load->view('templates/header',$data);
         $this->load->view('templates/sidebar-user',$data);
         $this->load->view('templates/topbar-user',$data);
@@ -158,23 +159,26 @@ class User extends CI_Controller
         $id = $row->applicant_id;
         $dateMonth = $this->input->post('requiredMonth',true);
         $dateYear = $this->input->post('requiredYear',true);
-        $date=strtotime($dateMonth.$dateYear); 
-        $requredDate = date("m-Y", $date);
+        $dateS=strtotime($dateYear.$dateMonth); 
+        $requredMonth = date("Y-m", $dateS);
+        $date = new DateTime($requredMonth);
+        $now = new DateTime();
+        
         if($un_id == null)
         {
             $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Sorry, there are no available rooms for this residence..<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('user/view_residences');
         }
         else
-        {
-            if(date("m-Y", time()) > $requredDate)//validate user input, user cannot select past dates
+        { 
+            if ($date < $now )//validate user input, user cannot select past dates and today
             {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Invalid date. Past dates and today cannot be selected ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');
                 redirect('user/view_residences');
             }
-            else
+            else 
             {
                 $dataArray = [
                     'applicant_id' => $id,

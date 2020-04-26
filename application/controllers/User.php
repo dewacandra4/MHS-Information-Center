@@ -7,6 +7,7 @@ class User extends CI_Controller
     {
         parent::__construct();//manggil parent construct yang ada di CI
         $this->load->library('form_validation'); //agar librari validasi form bsa dgunakan dimana aja
+        is_logged_in();
     }
     public function index()
     {

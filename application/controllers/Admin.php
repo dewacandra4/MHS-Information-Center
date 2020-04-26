@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();//manggil parent construct yang ada di CI
         $this->load->model('Menu_model', 'menu');
+        is_logged_in();
     }
     public function index()
     {
